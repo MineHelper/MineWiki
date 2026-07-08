@@ -1,0 +1,98 @@
+// ====================
+// 渐变背景 Mixin
+// ====================
+@mixin gradient-bg($direction: 180deg, $start-color, $end-color) {
+  background: linear-gradient($direction, $start-color, $end-color);
+}
+
+// ====================
+// 文字渐变 Mixin
+// ====================
+@mixin text-gradient($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// ====================
+// 毛玻璃效果 Mixin
+// ====================
+@mixin glass-effect($bg-color) {
+  backdrop-filter: blur(12px);
+  background: $bg-color !important;
+}
+
+// ====================
+// 卡片悬浮效果 Mixin
+// ====================
+@mixin card-hover($translate-y: -4px, $shadow) {
+  transition: transform $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    transform: translateY($translate-y);
+    box-shadow: $shadow;
+  }
+}
+
+// ====================
+// 链接下划线动画 Mixin
+// ====================
+@mixin link-underline($color: $brand-primary, $height: 2px) {
+  text-decoration: none;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: $height;
+    bottom: -2px;
+    left: 0;
+    background-color: $color;
+    transition: width $transition-base;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+// ====================
+// 滚动条 Mixin
+// ====================
+@mixin custom-scrollbar($thumb-color, $thumb-hover-color, $width: 8px) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: $width / 2;
+
+    &:hover {
+      background: $thumb-hover-color;
+    }
+  }
+}
+
+// ====================
+// 响应式 Mixin
+// ====================
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+// ====================
+// 圆角与阴影组合 Mixin
+// ====================
+@mixin rounded-shadow($radius: $radius-lg, $shadow: $shadow-md) {
+  border-radius: $radius;
+  box-shadow: $shadow;
+}

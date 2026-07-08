@@ -1,0 +1,35 @@
+// ====================
+// 响应式适配
+// ====================
+
+@include mobile {
+  .vp-doc {
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .VPHero {
+    .tagline {
+      font-size: 1rem;
+    }
+
+    .image {
+      max-width: 180px;
+    }
+  }
+
+  .VPFeature {
+    .icon {
+      font-size: 1.8rem;
+    }
+
+    .title {
+      font-size: 1.1rem;
+    }
+  }
+}

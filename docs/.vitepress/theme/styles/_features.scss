@@ -1,0 +1,61 @@
+// ====================
+// Feature 卡片样式（支持主题适配）
+// ====================
+
+.VPFeature {
+  border-radius: $radius-xl !important;
+  border: 1px solid rgba($brand-primary, 0.08);
+  box-shadow: $shadow-md;
+  transition: transform $transition-base, box-shadow $transition-base, background $transition-base;
+
+  // 亮色主题（默认）
+  background: linear-gradient(145deg, #ffffff, #f9fafb);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-brand-lg;
+  }
+
+  // 图标样式
+  .icon {
+    font-size: 2.2rem;
+    line-height: 1;
+    margin-bottom: 12px;
+    display: inline-block;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.08));
+    transition: transform $transition-base;
+  }
+
+  &:hover .icon {
+    transform: scale(1.15);
+  }
+
+  // 标题样式
+  .title {
+    font-weight: 700;
+    color: var(--vp-c-text-1);
+  }
+
+  // 详情文字
+  .details {
+    color: var(--vp-c-text-2);
+    line-height: 1.75;
+  }
+}
+
+// 暗色主题适配
+.dark {
+  .VPFeature {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border-color: rgba($brand-primary, 0.15);
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba($brand-primary, 0.2);
+      border-color: rgba($brand-primary, 0.25);
+    }
+
+    .icon {
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+  }
+}

@@ -1,0 +1,62 @@
+// ====================
+// 品牌色彩系统
+// ====================
+$brand-primary: #42b883;
+$brand-secondary: #33a06f;
+$brand-dark: #2f855a;
+$brand-light: #81e6b8;
+$brand-soft: rgba(66, 184, 131, 0.14);
+
+// 渐变色彩
+$gradient-start: #42d392;
+$gradient-end: #647eff;
+$hero-gradient: linear-gradient(120deg, $gradient-start 30%, $gradient-end);
+
+// 文字色彩
+$text-title-gradient: linear-gradient(120deg, #2c3e50 0%, $brand-primary 100%);
+
+// ====================
+// 阴影系统
+// ====================
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
+$shadow-md: 0 2px 12px rgba(0, 0, 0, 0.04);
+$shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.06);
+$shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+$shadow-brand-sm: 0 4px 14px rgba(0, 0, 0, 0.08);
+$shadow-brand-md: 0 6px 20px rgba(0, 0, 0, 0.12);
+$shadow-brand-lg: 0 8px 24px rgba($brand-primary, 0.12);
+$shadow-brand-glow: 0 4px 12px rgba($brand-primary, 0.2);
+
+// ====================
+// 圆角系统
+// ====================
+$radius-sm: 8px;
+$radius-md: 10px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-full: 50%;
+
+// ====================
+// 过渡动画
+// ====================
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+$transition-slow: 0.4s ease;
+
+// ====================
+// 布局
+// ====================
+$navbar-blur: blur(12px);
+$navbar-bg-light: rgba(255, 255, 255, 0.85);
+$navbar-bg-dark: rgba(27, 27, 31, 0.85);
+
+// ====================
+// 字体
+// ====================
+$font-family-base: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+
+// ====================
+// 断点
+// ====================
+$breakpoint-mobile: 768px;

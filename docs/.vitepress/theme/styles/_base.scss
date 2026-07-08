@@ -1,0 +1,32 @@
+// ====================
+// 全局基础样式
+// ====================
+
+:root {
+  --vp-font-family-base: #{$font-family-base};
+  --vp-c-brand-1: #{$brand-primary};
+  --vp-c-brand-2: #{$brand-secondary};
+  --vp-c-brand-3: #{$brand-dark};
+  --vp-c-brand-soft: #{$brand-soft};
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #{$gradient-start} 30%, #{$gradient-end});
+}
+
+// 页面整体背景渐变
+.VPDoc .content-container {
+  @include gradient-bg(180deg, rgba($brand-primary, 0.03), rgba(255, 255, 255, 0));
+  border-radius: $radius-lg;
+}
+
+// 自定义滚动条
+@include custom-scrollbar(
+  rgba($brand-primary, 0.35),
+  rgba($brand-primary, 0.6),
+  8px
+);
+
+// 选中文字高亮
+::selection {
+  background: rgba($brand-primary, 0.25);
+  color: inherit;
+}

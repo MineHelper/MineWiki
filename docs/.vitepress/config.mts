@@ -56,6 +56,10 @@ export default defineConfig({
       label: '目录'
     },
 
+    returnToTop: {
+      text: '返回顶部'
+    },
+
     search: {
       provider: 'local',
       options: {

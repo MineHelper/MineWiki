@@ -1,0 +1,28 @@
+// ====================
+// Hero 区域样式
+// ====================
+
+.VPHero {
+  position: relative;
+
+  .name,
+  .text {
+    font-weight: 800 !important;
+    letter-spacing: -1.5px;
+  }
+
+  .tagline {
+    font-size: 1.25rem;
+    color: var(--vp-c-text-2);
+    margin-top: 12px;
+  }
+
+  // Hero 图片动画
+  .image {
+    transition: transform $transition-slow;
+
+    &:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+  }
+}

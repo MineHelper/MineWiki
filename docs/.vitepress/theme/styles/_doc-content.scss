@@ -1,0 +1,74 @@
+// ====================
+// 文档内容区域样式
+// ====================
+
+.vp-doc {
+  // 链接下划线动画
+  a {
+    @include link-underline($brand-primary, 2px);
+  }
+
+  // 标题样式增强
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    @include text-gradient($text-title-gradient);
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba($brand-primary, 0.15);
+  }
+
+  // 段落行高优化
+  p {
+    line-height: 1.85;
+    color: var(--vp-c-text-2);
+  }
+
+  // 代码块圆角与阴影
+  div[class*='language-'] {
+    border-radius: $radius-lg;
+    box-shadow: $shadow-lg;
+  }
+
+  // 自定义容器美化
+  .custom-block {
+    border-radius: $radius-lg;
+    border-left-width: 4px;
+    box-shadow: $shadow-sm;
+  }
+
+  // 表格美化
+  table {
+    border-radius: $radius-md;
+    overflow: hidden;
+    box-shadow: $shadow-md;
+  }
+
+  th {
+    @include gradient-bg(180deg, #f0fdf4, #e6f9ee);
+    font-weight: 600;
+  }
+
+  tr:nth-child(even) {
+    background-color: #fafcfb;
+  }
+}
+
+// 暗色主题下的表格适配
+.dark {
+  .vp-doc {
+    th {
+      @include gradient-bg(180deg, rgba($brand-primary, 0.15), rgba($brand-primary, 0.08));
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+  }
+}

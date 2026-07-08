@@ -1,0 +1,37 @@
+// ====================
+// 布局组件样式（导航栏、侧边栏、页脚）
+// ====================
+
+// 导航栏毛玻璃效果
+.VPNav {
+  @include glass-effect($navbar-bg-light);
+
+  .dark & {
+    @include glass-effect($navbar-bg-dark);
+  }
+}
+
+// 侧边栏美化
+.VPSidebar {
+  @include gradient-bg(180deg, rgba($brand-primary, 0.02), transparent 200px);
+
+  .VPSidebarItem {
+    .text {
+      font-weight: 500;
+    }
+
+    &.is-active .text {
+      color: $brand-primary;
+    }
+  }
+}
+
+// 搜索框美化
+.DocSearch-Button {
+  border-radius: $radius-md !important;
+}
+
+// 页脚美化
+.VPFooter {
+  border-top: 1px solid rgba($brand-primary, 0.1);
+}

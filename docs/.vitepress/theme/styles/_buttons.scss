@@ -1,0 +1,26 @@
+// ====================
+// 按钮样式
+// ====================
+
+.VPButton {
+  border-radius: $radius-md !important;
+  box-shadow: $shadow-brand-sm;
+  transition: all $transition-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-brand-md;
+  }
+}
+
+// 返回顶部按钮
+.VPBackToTop {
+  border-radius: $radius-full !important;
+  box-shadow: $shadow-brand-glow !important;
+  transition: all $transition-base;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba($brand-primary, 0.35) !important;
+  }
+}

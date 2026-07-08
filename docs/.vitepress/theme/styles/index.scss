@@ -1,0 +1,21 @@
+// ====================
+// 主题样式入口文件
+// 按顺序导入所有 SCSS 模块
+// ====================
+
+// 1. 变量与工具（必须先导入）
+@import './variables';
+@import './mixins';
+
+// 2. 基础样式
+@import './base';
+
+// 3. 组件样式
+@import './hero';
+@import './buttons';
+@import './features';
+@import './layout';
+@import './doc-content';
+
+// 4. 响应式（最后导入，覆盖其他样式）
+@import './responsive';
