@@ -4,12 +4,12 @@ layout: home
 
 hero:
   name: "MineWiki"
-  text: "A VitePress Site"
-  tagline: My great project tagline
+  text: "面向新手玩家和腐竹的教程"
+  tagline: 简单 · 公益
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: 玩家交流群
+      link: https://qm.qq.com/q/Du1EkGI0OA
     - theme: alt
       text: API Examples
       link: /api-examples
