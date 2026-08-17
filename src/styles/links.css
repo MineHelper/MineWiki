@@ -1,4 +1,5 @@
-.prose a {
+/* 仅修饰正文中的行内链接；标题锚点、卡片和组件链接保留 Fumadocs 默认样式。 */
+.prose :is(p, li, td, blockquote) a {
   text-decoration: none;
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 100% 1px;
@@ -7,6 +8,6 @@
   transition: background-size 120ms ease;
 }
 
-.prose a:hover {
+.prose :is(p, li, td, blockquote) a:hover {
   background-size: 100% 0.12em;
 }
