@@ -1,0 +1,8 @@
+{
+  "title": "配置文件",
+  "pages": [
+    "index",
+    "server-properties",
+    "basic-files"
+  ]
+}

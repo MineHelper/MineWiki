@@ -1,0 +1,63 @@
+---
+title: server.properties 详解
+description: 最核心的配置文件，逐项说清楚每个参数
+---
+
+# server.properties 详解
+
+`server.properties` 是服务端的核心配置文件，几乎每个新手都在这改过东西。这篇把常用参数讲一遍，你遇到的大部分"怎么改服务器设置"的问题都能在这找到答案。
+
+## 服务器基础
+
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| `server-port` | `25565` | 服务端监听的端口，改了连接地址要跟着改 |
+| `motd` | `A Minecraft Server` | 服务器列表显示的标题文字 |
+| `max-players` | `20` | 最大在线人数 |
+| `online-mode` | `true` | 正版验证。改 `false` 允许离线登录，但风险自己承担（见下文） |
+| `difficulty` | `easy` | 难度，可选 peaceful / easy / normal / hard |
+| `gamemode` | `survival` | 默认游戏模式 |
+| `view-distance` | `10` | 视距，越大越吃性能 |
+
+## 世界相关
+
+| 参数 | 默认值 | 说明 |
+| --- | --- | --- |
+| `level-name` | `world` | 主世界文件夹名，想换世界就改这里 |
+| `level-seed` | （空） | 世界种子，填了能生成固定地形 |
+| `spawn-protection` | `16` | 出生点保护半径，范围内只有 OP 能破坏，改成 0 可关闭 |
+| `pvp` | `true` | 能否互相攻击 |
+| `allow-nether` / `allow-end` | `true` | 是否开启下界/末地 |
+| `hardcore` | `false` | 硬核模式，死亡即封禁 |
+
+## 难度和玩法
+
+| 参数 | 说明 |
+| --- | --- |
+| `keep-spawn-loaded` | 是否常驻加载出生点区块，影响性能 |
+| `spawn-monsters` / `spawn-animals` | 是否刷怪/刷动物 |
+| `generate-structures` | 是否生成遗迹等结构 |
+
+## 几个新手最爱问的
+
+**Q：想关 PvP 怎么改？**
+`pvp=false`，重启。
+
+**Q：想让人一进服就是创造模式？**
+`gamemode=creative`。
+
+**Q：怎么限制最大人数？**
+`max-players=5` 之类。
+
+**Q：视距卡怎么调？**
+把 `view-distance` 调小，比如 `6`，能明显缓解卡顿。注意这个参数客户端那边显示的是"服务器视距"，玩家改不了。
+
+## 重要提醒
+
+- **`online-mode` 千万别乱关**：关掉正版验证（`online-mode=false`），盗版玩家能进，但你的服务器也失去了身份验证这层保护，任何人都能冒用别人的名字进来，盗号的、捣乱的都挡不住。除非你明确知道自己在干什么，否则保持 `true`。
+- **地址是 `IP:端口` 格式**：改了 `server-port`，你发给玩家的地址和端口转发的规则都要同步改，三处不一致就进不去。
+- **改完必须重启**：`server.properties` 只在启动时读取。
+
+## 改坏了怎么办
+
+配置文件损坏或写错了格式，服务端可能启动失败，或某些参数不生效。解决办法：删掉 `server.properties`，服务端启动时会用默认值重新生成一个，回到出厂状态。所以改之前先备份，或者干脆记住"删了能重生成"，大胆改。
