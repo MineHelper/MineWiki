@@ -25,10 +25,10 @@ export default function HomePage() {
             <ChevronRight className="ml-2 h-4 w-4" />
           </Link>
           <Link
-            href="/docs/test"
+            href="https://qm.qq.com/q/ddmU2e3I4g"
             className="inline-flex items-center rounded-lg border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-800"
           >
-            查看示例页面
+            加入QQ群
           </Link>
         </div>
       </div>
