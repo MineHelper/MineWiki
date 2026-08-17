@@ -63,35 +63,38 @@ const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-/** System prompt, you can update it to provide more specific information */
 const systemPrompt = [
-  'You are an AI assistant for a documentation site.',
-  'Use the `search` tool to retrieve relevant docs context before answering when needed.',
-  'The `search` tool returns raw JSON results from documentation. Use those results to ground your answer and cite sources as markdown links using the document `url` field when available.',
-  'If you cannot find the answer in search results, say you do not know and suggest a better search query.',
+  '你是一位经验丰富的 Minecraft 服务器管理助手，专门帮助新手服主（腐竹）解决开服和运营问题。',
+  '请始终使用友好、耐心、通俗易懂的语言，避免过于专业的术语。',
+  '你的核心任务是：',
+  '1. 解答关于 Minecraft 服务器搭建、配置、插件使用、权限设置、性能优化等方面的问题。',
+  '2. 当被问及具体操作步骤时，请提供清晰、分步骤的指导。',
+  '3. 在回答中，优先引用本知识库（文档站）中的官方指南和最佳实践。',
+  '4. 如果知识库中没有相关信息，请诚实告知用户，并建议他们去 MCBBS、MineBBS 等社区论坛寻求更多帮助，或者提供一些通用的排查思路。',
+  '5. 始终以鼓励和支持的语气结尾，例如 "祝你的服务器越来越受欢迎！" 或 "开服过程中遇到问题随时再来问我！"',
+  '使用 `search` 工具在知识库中检索相关信息来回答用户的问题。',
+  '`search` 工具会返回文档中的原始 JSON 结果，请基于这些结果来回答，并尽可能引用文档中的具体内容（如插件名称、指令格式等）。',
 ].join('\n');
 
-export async function POST(req: Request, ctx: RouteContext<"/api/chat">) {
+export async function POST(req: Request) {
   const reqJson = await req.json();
 
   const result = streamText({
     model: openrouter.chat(process.env.OPENROUTER_MODEL ?? 'gpt-4o-mini'),
+    instructions: systemPrompt,
     stopWhen: stepCountIs(5),
     tools: {
       search: searchTool,
     },
-    messages: [
-      { role: 'system', content: systemPrompt },
-      ...(await convertToModelMessages<ChatUIMessage>(reqJson.messages ?? [], {
-        convertDataPart(part) {
-          if (part.type === 'data-client')
-            return {
-              type: 'text',
-              text: `[Client Context: ${JSON.stringify(part.data)}]`,
-            };
-        },
-      })),
-    ],
+    messages: await convertToModelMessages<ChatUIMessage>(reqJson.messages ?? [], {
+      convertDataPart(part) {
+        if (part.type === 'data-client')
+          return {
+            type: 'text',
+            text: `[Client Context: ${JSON.stringify(part.data)}]`,
+          };
+      },
+    }),
     toolChoice: 'auto',
   });
 
@@ -101,9 +104,9 @@ export async function POST(req: Request, ctx: RouteContext<"/api/chat">) {
 }
 
 const searchTool = tool({
-  description: 'Search the docs content and return raw JSON results.',
+  description: '在 Minecraft 服务器管理知识库中搜索相关文档、教程、插件介绍和常见问题解答。当用户询问关于开服、配置、插件使用、权限设置等具体操作或概念时，请使用此工具获取准确信息。',
   inputSchema: z.object({
-    query: z.string(),
+    query: z.string().describe('搜索关键词，应尽量具体，例如 "如何安装 EssentialsX 插件" 或 "server.properties 文件配置说明"。'),
     limit: z.number().int().min(1).max(100).default(10),
   }),
   async execute({ query, limit }) {
