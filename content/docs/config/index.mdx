@@ -3,22 +3,24 @@ title: 配置文件
 description: 服务端目录下那些文件都是干嘛的，别乱删
 ---
 
-# 配置文件
-
 第一次开服，服务端目录会冒出一堆文件。这篇把最常见的几个讲清楚，让你知道哪些能删、哪些动之前要三思。
 
 ## 目录速览
 
-| 文件/文件夹 | 作用 | 能不能删 |
-| --- | --- | --- |
-| `server.properties` | 服务器核心配置（端口、人数、模式等） | 能删，会重新生成，但设置会重置 |
-| `eula.txt` | 用户协议确认 | 删了要重新同意 |
-| `world/` | 主世界存档 | **不能随便删**，删了世界就没了 |
-| `plugins/` | 插件文件夹 | 删插件就删对应 jar 和配置 |
-| `logs/` | 运行日志 | 能删，都是历史记录 |
-| `whitelist.json` | 白名单 | 看名字就知道 |
-| `ops.json` | 管理员（OP）名单 | 删了等于解聘所有管理员 |
-| `banned-players.json` | 封禁名单 | 同理 |
+<FileTree>
+  <FileTreeItem name="server.properties" description="服务器核心配置：端口、人数、模式等。可以删除并重新生成，但原设置会重置。" />
+  <FileTreeItem name="eula.txt" description="用户协议确认文件；删除后需要再次同意协议。" />
+  <FileTreeItem name="world/" kind="folder" description="主世界存档。不要随意删除，否则世界和建筑都会丢失。" />
+  <FileTreeItem name="plugins/" kind="folder" description="插件文件与插件配置所在目录。" />
+  <FileTreeItem name="logs/" kind="folder" description="运行日志目录，可以清理历史日志。" />
+  <FileTreeItem name="whitelist.json" description="白名单记录。" />
+  <FileTreeItem name="ops.json" description="管理员（OP）名单；删除相当于移除所有管理员。" />
+  <FileTreeItem name="banned-players.json" description="被封禁玩家名单。" />
+</FileTree>
+
+<Callout tone="danger" title="改动前先备份">
+  只要涉及 `world/`、配置文件或插件更新，先复制一份可恢复的备份。删除世界目录无法通过重启服务端找回。
+</Callout>
 
 ## 最常见的误区
 
