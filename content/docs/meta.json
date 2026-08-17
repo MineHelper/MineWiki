@@ -1,0 +1,11 @@
+{
+  "pages": [
+    "general",
+    "network",
+    "plugins",
+    "config",
+    "maintenance",
+    "mods",
+    "faq"
+  ]
+}
