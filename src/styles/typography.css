@@ -1,0 +1,35 @@
+.prose {
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+}
+
+.prose p {
+  margin: 1em 0;
+  text-align: justify;
+  text-justify: inter-ideograph;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.prose ul,
+.prose ol {
+  padding-inline-start: 1.5em;
+  line-height: 1.8;
+}
+
+.prose li {
+  margin: 0.3em 0;
+}
+
+.prose li::marker {
+  color: var(--color-fd-muted-foreground);
+}
+
+.prose li > ul,
+.prose li > ol {
+  margin-top: 0.2em;
+}
+
+.prose strong {
+  font-weight: 600;
+}

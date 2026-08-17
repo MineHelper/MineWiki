@@ -2,6 +2,14 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 
+@import '../styles/typography.css';
+@import '../styles/headings.css';
+@import '../styles/tables.css';
+@import '../styles/code.css';
+@import '../styles/links.css';
+@import '../styles/scrollbar.css';
+@import '../styles/selection.css';
+
 html {
   scrollbar-gutter: stable;
 }

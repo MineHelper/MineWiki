@@ -1,0 +1,12 @@
+.prose a {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 1.1em;
+  background-repeat: no-repeat;
+  transition: background-size 120ms ease;
+}
+
+.prose a:hover {
+  background-size: 100% 0.12em;
+}
