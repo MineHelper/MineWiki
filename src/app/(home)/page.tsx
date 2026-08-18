@@ -14,7 +14,7 @@ import {
   ServerCog,
   ShieldCheck,
   Sparkles,
-  Wrench,
+  FileCode2,
 } from 'lucide-react';
 
 const learningPaths: Array<{
@@ -104,11 +104,11 @@ export default function HomePage() {
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
             <Link
-              href="/docs/faq"
+              href="/tools/start-script"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-fd-border bg-fd-background/75 px-5 text-sm font-semibold text-fd-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-fd-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
-              <CircleHelp className="size-4 text-emerald-600 dark:text-emerald-300" aria-hidden="true" />
-              先解决一个问题
+              <FileCode2 className="size-4 text-emerald-600 dark:text-emerald-300" aria-hidden="true" />
+              生成启动脚本
             </Link>
           </div>
         </div>
