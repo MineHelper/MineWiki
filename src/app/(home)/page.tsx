@@ -104,11 +104,11 @@ export default function HomePage() {
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
             <Link
-              href="/tools/start-script"
+              href="/tools"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-fd-border bg-fd-background/75 px-5 text-sm font-semibold text-fd-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-fd-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
             >
               <FileCode2 className="size-4 text-emerald-600 dark:text-emerald-300" aria-hidden="true" />
-              生成启动脚本
+              常用工具
             </Link>
           </div>
         </div>
