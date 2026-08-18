@@ -1,92 +1,102 @@
 ---
 title: 首次开服完整流程
-description: 从零开始跑起你的第一个服务器，一步步来
+description: 用 Paper 在本机完成第一次可验证启动，再决定是否开放联机
 ---
 
-上一篇讲了开服前要想清楚的事，这篇直接把第一个服务器跑起来。我们以 Java 版、Paper 服务端为例，其他服务端流程大同小异。
+这一页以 Minecraft Java 版的 Paper 服务端为例。目标很简单：先让服务端在本机稳定启动，确认世界、日志和关闭流程正常；公网联机留到后面处理。这样出了问题时，范围会小很多。
 
 <Steps>
-  <Step number="1" title="下载服务端">
-    从 Paper 官方下载页获取与你的 Minecraft 版本匹配的 jar 文件，并放进一个独立文件夹。
+  <Step number="1" title="下载与游戏版本匹配的服务端">
+    从 Paper 官方下载页获取 jar，并放进一个专门的空文件夹。
   </Step>
-  <Step number="2" title="创建启动脚本">
-    Windows 使用 `start.bat`，Linux 使用 `.sh` 脚本；文件名要和实际 jar 文件完全一致。
+  <Step number="2" title="写启动脚本">
+    脚本中的 jar 名称、Java 版本和内存参数必须与实际环境一致。
   </Step>
-  <Step number="3" title="首次启动并同意 EULA">
-    第一次启动失败是正常现象。编辑 `eula.txt` 后再启动，服务端才会继续生成文件。
+  <Step number="3" title="首次启动并确认 EULA">
+    第一次运行会生成文件并要求接受 Minecraft EULA；这是正常流程，不是安装失败。
   </Step>
-  <Step number="4" title="本机验证后再联机">
-    看到 `Done` 后先用 `localhost` 测试；本机稳定后，再继续配置端口转发或内网穿透。
+  <Step number="4" title="本机验证与安全关闭">
+    控制台完成启动后先连接 `localhost`，再用 `stop` 关闭并确认世界已保存。
   </Step>
 </Steps>
 
-## 下载服务端
+## 1. 下载并整理文件
 
-服务端不是从启动器里下载的。你需要到 [Paper 官方下载页](https://papermc.io/downloads/paper) 下载 Paper 的 jar 文件。
+到 [Paper 官方下载页](https://papermc.io/downloads/paper)选择与你的客户端匹配的 Minecraft 版本和构建，下载 jar 文件。不要把服务端直接丢在下载目录或桌面；新建一个独立文件夹，例如 `D:\MinecraftServer\` 或 `~/minecraft-server/`，把 jar 放进去。
 
-选版本的时候注意：Paper 只支持 1.16.5 及以上的版本，玩老版本（比如 1.8）只能用 Spigot 或者官方原版服务端。不要用别人二次打包、加了所谓"优化"的整合 jar，来源不明的东西你永远不知道里面塞了什么。
+Paper 的可用 Minecraft 版本和对应 Java 版本会变化。不要依赖“Paper 只支持某个版本以上”之类的旧说法；以 [Paper 的当前入门文档](https://docs.papermc.io/paper/getting-started/)和下载页为准。
 
-下载完得到一个类似 `paper-1.21.1-131.jar` 的文件。给这个 jar 建一个独立的文件夹放好，别和下载目录混在一起——后面会生成一堆文件，全堆在桌面你会崩溃。
+## 2. 创建启动脚本
 
-## 第一次启动
-
-用一个 `.bat`（Windows）或者 `.sh`（Linux）启动脚本启动服务端。Windows 下新建文本文件，改成 `start.bat`，内容：
+Windows 下，在与 jar 同一目录创建 `start.bat`。下面示例中的 `paper.jar` 必须改成你的实际文件名：
 
 ```bat
 @echo off
-java -Xmx4G -jar paper-1.21.1-131.jar nogui
+java -Xms2G -Xmx4G -jar "paper.jar" --nogui
 pause
 ```
 
-几个说明：
+Linux 下可以创建 `start.sh`：
 
-- `-Xmx4G` 是最大内存，根据上一篇的规则改。
-- `nogui` 表示不启动图形界面，纯命令行跑，省资源。
-- 记得把 jar 文件名改成你实际下载的文件名。
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+java -Xms2G -Xmx4G -jar "paper.jar" --nogui
+```
 
-双击运行。第一次启动一定会失败，这是正常的，看提示：
+然后执行 `chmod +x start.sh`，再用 `./start.sh` 启动。`-Xms` 是初始堆内存，`-Xmx` 是最大堆内存；示例数值只适合小型起步服务器，请按[内存规划](/tools/memory-plan)和实际负载调整。`--nogui` 会关闭原版图形界面，命令行启动时推荐保留它。[Paper 官方示例](https://docs.papermc.io/paper/getting-started/)使用的也是这一写法。
+
+<Callout tone="tip" title="不想手写脚本？">
+  可以直接使用[启动脚本生成器](/tools/start-script)。它会按 Windows 或 Linux 输出脚本，但 jar 文件名仍应由你核对。
+</Callout>
+
+## 3. 第一次启动与 EULA
+
+运行脚本后，服务端会创建 `eula.txt` 等基础文件，并停止运行，控制台通常会提示：
 
 ```text
 You need to agree to the EULA in order to run the server.
 ```
 
-到服务器文件夹里找到 `eula.txt`，把 `eula=false` 改成 `eula=true`，保存，再启动。这一步没有别的办法绕过，Mojang 和 Paper 都要求你确认同意用户协议。
+打开 `eula.txt`，将 `eula=false` 改为 `eula=true` 并保存。这样做表示你同意 [Minecraft EULA](https://www.minecraft.net/eula)。随后再次运行脚本。
 
-<Callout tone="warning" title="第一次启动失败是预期行为">
-  不要因为第一次启动报错就反复重装 Java 或重新下载 jar。先按提示同意 EULA，再检查脚本里的 jar 文件名是否正确。
+<Callout tone="warning" title="第一次停止不等于 Java 安装失败">
+  如果日志明确提示 EULA，只需先完成 EULA 流程。只有出现 `UnsupportedClassVersionError`、`Unable to access jarfile` 等错误时，才需要回头检查 Java 版本或脚本里的 jar 名称。
 </Callout>
 
-## 生成世界并进入
+## 4. 本机验证
 
-第二次启动会开始生成世界，时间取决于电脑性能，几分钟不等。看到 `Done (12.345s)! For help, type "help"` 就算启动完成。
+第二次启动后，服务端会生成世界和默认配置。控制台出现 `Done` 之类的“启动完成”信息后，在同一台电脑的客户端中添加服务器地址：
 
-服务端窗口保持开着，用 Minecraft 客户端连接 `localhost` 就能进去测试。能进本地，接下来才需要考虑让别人能进来。
+```text
+localhost
+```
 
-## 常用的几个服务端命令
+若你改过 `server-port`，则使用 `localhost:端口`。本机能进入，只能证明服务端和本机网络路径正常；它不能证明端口转发或内网穿透已经配置正确。
 
-在服务端控制台直接输入：
+## 5. 常用控制台命令
 
-- `list` 查看在线玩家
-- `op 玩家名` 给予管理员权限
-- `save-all` 手动保存世界
-- `stop` 安全关闭服务器（直接关窗口可能会损坏世界）
+| 命令 | 用途 | 使用建议 |
+| --- | --- | --- |
+| `list` | 查看在线玩家 | 排查连接时确认服务端是否仍有响应。 |
+| `op 玩家名` | 授予 OP | 只给可信管理员；长期管理建议使用权限插件。 |
+| `save-all` | 请求保存世界 | 可在维护或备份前执行，但不替代完整备份。 |
+| `stop` | 保存并正常关闭服务端 | 日常关服应优先使用。 |
 
-## 关服的正确姿势
+## 6. 启动失败时先看哪里
 
-<Callout tone="danger" title="不要直接关闭服务端窗口">
-  直接点窗口右上角的叉，或者 `kill` 掉进程，可能让世界文件没有完成写入。正确做法是在控制台输入 `stop`，等它跑完存档流程再关。
-</Callout>
+1. 先打开 `logs/latest.log`；它通常比窗口里一闪而过的文字完整。
+2. `UnsupportedClassVersionError`：脚本调用的 Java 版本不符合服务端要求。
+3. `Unable to access jarfile`：脚本中的文件名或工作目录不对，注意 Windows 可能隐藏扩展名。
+4. `Address already in use` 或 `bind failed`：端口已被占用，或 `server-ip` 填错。家用单服的 `server-ip` 通常应留空。[Paper 官方排错指南](https://docs.papermc.io/paper/basic-troubleshooting/)也将这两项列为常见原因。
+5. 配置相关错误：先备份，再检查最近改过的文件；不要把删除 `server.properties` 当作第一反应。
 
-## 我该用原版还是 Paper
+## 7. 正确关闭服务端
 
-一句话总结：想要原汁原味就下官方的 `server.jar`，想要更好的性能和插件支持就上 Paper。两者的启动逻辑完全一样，上面这套流程同样适用。
+在控制台输入 `stop`，等待进程自行退出。直接关闭窗口、断电或强制结束进程会增加未写完世界数据的风险。准备更新、装插件或大改配置前，请先按[备份与恢复](/docs/maintenance/backup)创建可还原的备份。
 
-## 遇到问题先自查
+## 参考
 
-启动失败的报错里，绝大多数信息都是有用的，别跳过。常见的几类：
-
-- `UnsupportedClassVersionError`：Java 装错了，回上一篇看版本对应表。
-- `Port 25565 already in use`：端口被占用，检查是不是已经开了一个服务端，或者改 `server.properties` 里的端口。
-- `Failed to load properties file`：配置被写坏了，删掉 `server.properties` 让它重新生成。
-
-如果报错看不懂，把完整的日志贴给搜索引擎或问人，比只报一句"开服失败"有用得多。日志在 `logs/latest.log`，用记事本打开就能复制。
+- [Paper：Getting started](https://docs.papermc.io/paper/getting-started/)
+- [Paper：Basic troubleshooting](https://docs.papermc.io/paper/basic-troubleshooting/)
+- [Minecraft EULA](https://www.minecraft.net/eula)

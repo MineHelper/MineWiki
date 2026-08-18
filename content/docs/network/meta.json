@@ -3,6 +3,7 @@
   "pages": [
     "index",
     "port-forward",
-    "tunnel"
+    "tunnel",
+    "security-baseline"
   ]
 }

@@ -1,0 +1,52 @@
+---
+title: 日志与故障定位
+description: 学会从 latest.log、崩溃报告和性能报告中取证，而不是靠猜测修服务器
+---
+
+服务器出问题时，最有价值的信息通常已经写进日志。先收集证据，再改设置，能避免把一个插件问题误当成网络问题，或把一次配置错误误当成“服务端不稳定”。
+
+## 先判断是哪种事件
+
+| 现象 | 优先查看的位置 | 需要保留的内容 |
+| --- | --- | --- |
+| 启动后立刻退出 | `logs/latest.log` | 第一个异常、`Caused by` 段和启动命令。 |
+| 服务端崩溃 | `crash-reports/` 与 `logs/latest.log` | 崩溃报告文件名、异常类型和涉及的插件/模组。 |
+| 某个插件不加载 | `logs/latest.log` 的启动早期 | `Could not load`、缺失依赖、重复插件名。 |
+| 全服卡顿 | spark 报告与控制台 | 采样时间、在线人数、发生地点和报告链接。 |
+| 玩家连不上 | 服务端日志、玩家报错和网络测试结果 | 地址、端口、服务端是否收到连接尝试。 |
+
+Paper 官方将 `logs/latest.log` 作为常规问题的第一检查点；崩溃时，报告会保存在 `crash-reports/` 目录。[Paper：Basic troubleshooting](https://docs.papermc.io/paper/basic-troubleshooting/)
+
+## 怎样读异常堆栈
+
+堆栈很长并不意味着每一行都同样重要。先找异常类型和异常消息，再看最早出现的 `Caused by:`；如果其中点名了某个插件或模组，先检查它的版本、依赖和最近改动。
+
+不要只截最后一行，也不要把整个数十 MB 日志直接发到群里。更好的求助材料是：服务端类型与完整版本、`java -version` 输出、复现步骤、相关时间段的日志，以及已尝试的操作。这样他人才能判断问题是否可复现。
+
+## 插件问题的二分排查
+
+当确定故障由插件引起、但不知道是哪一个时，可以做二分排查：先备份 `plugins/`，把插件分成两组，暂时移出其中一组后启动；根据问题是否还存在，继续在可疑的一半中缩小范围。有关联的插件与依赖应放在同一组，避免把“缺依赖”误判成真正故障。
+
+Paper 的官方排错文档也建议通过这种方式缩小插件范围。[Paper：Basic troubleshooting](https://docs.papermc.io/paper/basic-troubleshooting/)
+
+## 性能问题请抓报告
+
+出现可复现卡顿时，执行：
+
+```text
+/spark profiler start --timeout 300
+```
+
+五分钟后保存报告链接。不要在卡顿已经消失后再抓报告，也不要只说“TPS 低”。记录发生时的在线人数、维度、机器负载和最近改动，才能把报告里的热点和实际行为对应起来。
+
+## 处理前的安全线
+
+- 先做整服备份，尤其是准备删除插件、换世界目录或更新加载器时。
+- 不要把令牌、RCON 密码、数据库密码、用户 IP 或完整公网地址公开贴出。
+- 不要为了让服务端“先跑起来”关闭 `online-mode`、防火墙或正版验证；先理解报错对应的原因。
+- 每做一次改动就重启并复现一次，避免多项变更叠在一起。
+
+## 参考
+
+- [Paper：Basic troubleshooting](https://docs.papermc.io/paper/basic-troubleshooting/)
+- [Paper：Adding plugins](https://docs.papermc.io/paper/adding-plugins/)

@@ -8,9 +8,9 @@ description: 服务端目录下那些文件都是干嘛的，别乱删
 ## 目录速览
 
 <FileTree>
-  <FileTreeItem name="server.properties" description="服务器核心配置：端口、人数、模式等。可以删除并重新生成，但原设置会重置。" />
+  <FileTreeItem name="server.properties" description="服务器核心配置：端口、人数、模式等。修改前先备份；缺失或无效项会在启动时按默认值补齐。" />
   <FileTreeItem name="eula.txt" description="用户协议确认文件；删除后需要再次同意协议。" />
-  <FileTreeItem name="world/" kind="folder" description="主世界存档。不要随意删除，否则世界和建筑都会丢失。" />
+  <FileTreeItem name="world/" kind="folder" description="常见的主世界目录。多世界、模组服或新版维度可能还会有其他世界与数据目录。" />
   <FileTreeItem name="plugins/" kind="folder" description="插件文件与插件配置所在目录。" />
   <FileTreeItem name="logs/" kind="folder" description="运行日志目录，可以清理历史日志。" />
   <FileTreeItem name="whitelist.json" description="白名单记录。" />
@@ -19,18 +19,18 @@ description: 服务端目录下那些文件都是干嘛的，别乱删
 </FileTree>
 
 <Callout tone="danger" title="改动前先备份">
-  只要涉及 `world/`、配置文件或插件更新，先复制一份可恢复的备份。删除世界目录无法通过重启服务端找回。
+  涉及世界、配置、插件或模组更新时，优先备份整个服务端目录。只备份一个 `world/` 目录可能遗漏其他维度、插件和模组配置。
 </Callout>
 
 ## 最常见的误区
 
 - **以为删了 `server.properties` 能重置卡顿**：不会。卡顿根因不在配置文件里，后面《优化》章节会讲。
-- **把 `world/` 复制走就以为做了备份**：只复制一半。世界至少包含 `region/`（主世界地图）、`playerdata/`（玩家数据）、`level.dat`（世界信息）。只拷部分文件，恢复时很容易丢东西。
+- **只复制 `world/` 就认为备份完整**：多世界、插件和模组服还会依赖其他目录与配置。对新手最稳妥的策略是整服备份。
 - **改配置文件用记事本随手保存成 `server.properties.txt`**：Windows 记事本的老坑。文件多了 `.txt` 后缀，服务端就读不到了。保存时在"文件名"处加上 `.txt` 或在另存为里把类型改成"所有文件"。
 
 ## 配置文件改完不生效？
 
-绝大多数配置文件都是**启动时读取一次**，改完必须重启服务端。别在游戏里傻等，重启就完事。
+不少服务端和插件配置会在启动时读取。除非插件官方文档明确说明可以安全热重载，否则改完后应正常重启服务端，再通过日志和实际功能验证。
 
 ## 改配置前先备份
 

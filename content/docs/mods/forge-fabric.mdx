@@ -1,37 +1,47 @@
 ---
-title: Forge 还是 Fabric
-description: 两大模组加载器的对比，按你的需求选
+title: Forge、NeoForge 还是 Fabric
+description: 不从“谁更强”出发，而是用目标整合包和核心模组决定加载器
 ---
 
-## Forge 还是 Fabric
+选择加载器最可靠的原则只有一条：**你要运行的整合包或核心模组决定加载器。** Forge、NeoForge 和 Fabric 不是可以随意互换的三个“性能模式”；它们有不同的 API、依赖和发布生态。
 
-选加载器之前先记住这句话：**你想要的模组决定了加载器，而不是反过来**。先把你想玩的模组/整合包确定下来，再看它是基于哪个加载器。
+## 先看兼容性，再谈偏好
 
-## 对比
+| 你手上的需求 | 合理的选择 |
+| --- | --- |
+| 整合包页面明确写 Forge、NeoForge 或 Fabric | 完全按整合包要求安装，不要自行换加载器。 |
+| 有一个必须使用的核心模组 | 到模组的官方发布页确认它支持的 Minecraft 版本和加载器。 |
+| 想自己组包 | 先列出 5–10 个关键模组与依赖，找出共同支持的加载器和版本，再开始安装。 |
+| 只是想开一个轻量服务端 | 仍先看实际模组是否存在目标加载器版本；不要只根据“听说更快”选择。 |
 
-| 维度 | Forge / NeoForge | Fabric |
-| --- | --- | --- |
-| 模组数量 | 最多，老模组基本都是 Forge | 少于 Forge，但日常够用 |
-| 更新速度 | 新版本适配慢，经常要等 | 适配快，新版本发布后很快跟进 |
-| 性能 | 中等，加载更重 | 更轻快，启动和运行都更省 |
-| 兼容性 | 老模组多，但新老混装易冲突 | 模组间冲突相对少 |
-| 新手友好度 | 生态大，教程多 | 概念更清晰，文档规范 |
+Modrinth 和 CurseForge 的项目页通常会标示 Minecraft 版本和加载器。Fabric 官方也明确提醒，模组必须匹配正确的 Minecraft 版本和 Fabric，而不能与其他加载器的构建混用。[Fabric：Installing Mods](https://docs.fabricmc.net/players/installing-mods)
 
-## 怎么选
+## Forge、NeoForge 与 Fabric 的关系
 
-- **你想玩的整合包 / 核心模组是 Forge 的**：没得选，直接 Forge。
-- **想要最流畅、模组不在多而在于精**：Fabric。
-- **拿不定主意**：查你想要的模组在哪个加载器上，`modrinth.com` 每个模组页面都会标注支持的加载器。
-- **明确想玩光影、科技、魔法大整合**：大概率是 Forge 生态，走 Forge。
+- **Forge**：长期存在的模组加载器，许多旧整合包和旧模组明确要求它。
+- **NeoForge**：独立的现代加载器项目；不少新项目会明确发布 NeoForge 版本。它不是“Forge 改名”，也不能替代一个明确要求 Forge 的旧整合包。
+- **Fabric**：另一套独立生态。许多 Fabric 模组还依赖 Fabric API；Fabric jar 不能放到 Forge 或 NeoForge 服务端。
 
-## 记住这个坑
+因此，正确问题不是“哪个加载器更好”，而是“我的整合包、核心模组、依赖和服务端是否都明确支持同一套加载器与同一 Minecraft 版本”。
 
-同一个模组，Forge 版和 Fabric 版是**两个不同的文件**，不能混用。下载时看清"平台/loader"标签。装错加载器，启动器会直接报错或者干脆不识别这个模组。
+## 常见误区
 
-## NeoForge 是什么
+**同名模组的不同构建可以混用吗？** 不可以。Forge、NeoForge 和 Fabric 版本通常是不同二进制文件，依赖关系也不同。
 
-Forge 团队把项目交接给了 NeoForge 社区，新一代 Forge 就叫 NeoForge。如果你从没接触过 Forge，直接上 NeoForge 就行；如果整合包明确要求旧版 Forge，就按整合包要求来。**跟着整合包走，别自己开脑洞。**
+**新版本一定选 Fabric 吗？** 不一定。加载器与模组的适配速度会随项目、Minecraft 版本和作者计划变化；请看具体发布页，不要用通用印象替代兼容性检查。
 
-## 一句话
+**可以把 Paper 插件放进模组服吗？** 常规 Forge、NeoForge 或 Fabric 服务端不加载 Bukkit/Paper 插件。若某个混合服务端声称兼容两种生态，应先阅读它的官方兼容性与风险说明，并在测试副本上验证。
 
-确定模组 → 查加载器 → 下载对应版本。加载器本身不用纠结太久，模组生态替你做了决定。
+## 实用检查清单
+
+1. 记录 Minecraft 完整版本号，例如 `1.21.1`，不要只写 `1.21`。
+2. 记录加载器及其版本。
+3. 记录每个核心模组、前置库和配置文件的版本。
+4. 首次成功启动后，将这份清单与整服备份一起保存。
+
+继续阅读[安装模组服](/docs/mods/install)，了解服务端包、启动脚本和客户端同步的实际步骤。
+
+## 参考
+
+- [Fabric：Installing Mods](https://docs.fabricmc.net/players/installing-mods)
+- [NeoForge：Installing a Server](https://docs.neoforged.net/user/docs/server/)

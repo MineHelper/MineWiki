@@ -1,63 +1,67 @@
 ---
-title: server.properties 详解
-description: 最核心的配置文件，逐项说清楚每个参数
+title: server.properties 常用项
+description: 只解释新手最常改、最容易改错的服务端配置，并说明适用边界
 ---
 
-## server.properties 详解
+`server.properties` 位于服务端工作目录。它使用 `键=值` 的文本格式，服务端会在启动时读取并在缺失或无效项时补充默认值。不同 Minecraft 与 Paper 版本的完整字段会变化，所以最可靠的来源永远是你本机刚生成的文件和[Paper 配置参考](https://docs.papermc.io/paper/reference/server-properties/)。
 
-`server.properties` 是服务端的核心配置文件，几乎每个新手都在这改过东西。这篇把常用参数讲一遍，你遇到的大部分"怎么改服务器设置"的问题都能在这找到答案。
+## 修改前的原则
 
-## 服务器基础
+1. 停服或至少先确认本次修改不会被正在运行的插件覆盖。
+2. 复制一份原文件，例如 `server.properties.bak`。
+3. 一次只改少量、彼此相关的项，重启后立刻验证。
+4. 不要把“删掉文件重新生成”当成常规调试手段；它会重置你已经确认可用的设置。
 
-| 参数 | 默认值 | 说明 |
+## 连接与服务器列表
+
+| 参数 | 常见默认值 | 作用与建议 |
 | --- | --- | --- |
-| `server-port` | `25565` | 服务端监听的端口，改了连接地址要跟着改 |
-| `motd` | `A Minecraft Server` | 服务器列表显示的标题文字 |
-| `max-players` | `20` | 最大在线人数 |
-| `online-mode` | `true` | 正版验证。改 `false` 允许离线登录，但风险自己承担（见下文） |
-| `difficulty` | `easy` | 难度，可选 peaceful / easy / normal / hard |
-| `gamemode` | `survival` | 默认游戏模式 |
-| `view-distance` | `10` | 视距，越大越吃性能 |
+| `server-port` | `25565` | Java 服务端监听的 TCP 端口。改它后，客户端地址、防火墙和端口转发也要同步改。 |
+| `server-ip` | 空 | 绑定地址。家用单服通常应留空，以监听全部可用网卡；不要填公网 IP。 |
+| `motd` | `A Minecraft Server` | 服务器列表显示的介绍文字。 |
+| `max-players` | `20` | 最大同时在线人数，不等于硬件一定能承受的人数。 |
+| `online-mode` | `true` | 向 Mojang 账号服务验证玩家身份。公开服务器通常应保持开启。 |
+| `white-list` | `false` | 是否启用白名单；启用后配合 `whitelist add 玩家名` 管理成员。 |
 
-## 世界相关
+`online-mode=false` 会关闭账号身份校验。它不仅改变谁能进入，也会引入冒名、权限和插件身份识别风险；除非你已理解并实施了对应的代理和认证方案，否则请保持 `true`。
 
-| 参数 | 默认值 | 说明 |
+## 玩法与世界生成
+
+| 参数 | 常见默认值 | 作用与建议 |
 | --- | --- | --- |
-| `level-name` | `world` | 主世界文件夹名，想换世界就改这里 |
-| `level-seed` | （空） | 世界种子，填了能生成固定地形 |
-| `spawn-protection` | `16` | 出生点保护半径，范围内只有 OP 能破坏，改成 0 可关闭 |
-| `pvp` | `true` | 能否互相攻击 |
-| `allow-nether` / `allow-end` | `true` | 是否开启下界/末地 |
-| `hardcore` | `false` | 硬核模式，死亡即封禁 |
+| `gamemode` | `survival` | 新玩家的默认游戏模式；若希望所有人每次加入都被强制调整，还需要看 `force-gamemode`。 |
+| `difficulty` | `easy` | 可用值为 `peaceful`、`easy`、`normal`、`hard`。 |
+| `pvp` | `true` | 是否允许玩家互相造成伤害。 |
+| `level-name` | `world` | 世界保存目录。改名后可能生成或加载另一套世界，更新前尤其要小心。 |
+| `level-seed` | 空 | 新建世界使用的种子；已有世界不会因改种子自动重生成。 |
+| `generate-structures` | `true` | 是否在**新生成的区块**中生成村庄等结构。 |
+| `hardcore` | `false` | 硬核世界的规则，启用前应先向玩家确认并做好备份。 |
 
-## 难度和玩法
+不要把 `level-name` 当作“换世界”的快捷开关。它确实会改变要加载的目录，但如果填错了路径，服务端可能生成一个空世界，让人误以为旧存档丢失。先停服、备份并确认目录名称。
 
-| 参数 | 说明 |
-| --- | --- |
-| `keep-spawn-loaded` | 是否常驻加载出生点区块，影响性能 |
-| `spawn-monsters` / `spawn-animals` | 是否刷怪/刷动物 |
-| `generate-structures` | 是否生成遗迹等结构 |
+## 距离、实体和性能
 
-## 几个新手最爱问的
+| 参数 | 常见默认值 | 作用与建议 |
+| --- | --- | --- |
+| `view-distance` | `10` | 服务端向玩家发送世界数据的区块半径，Java 服务端常见范围为 3–32。调低通常能减轻区块发送与加载压力。 |
+| `simulation-distance` | `10` | 实体与部分区块刻更新的区块半径，常见范围为 3–32。通常不应高于 `view-distance`。 |
+| `entity-broadcast-range-percentage` | `100` | 控制实体被发送给客户端的距离比例，随意调低可能影响玩法观感。 |
+| `spawn-protection` | `16` | 这是保护范围的参数，区域边长为 `2x+1`；设为 `0` 可关闭。没有 OP 时，出生点保护不会生效。 |
 
-**Q：想关 PvP 怎么改？**
-`pvp=false`，重启。
+如果服务器卡顿，不要只改视距。先通过日志和性能报告确认是区块、实体、插件还是网络问题；具体流程见[性能定位与优化](/docs/maintenance/optimize)。
 
-**Q：想让人一进服就是创造模式？**
-`gamemode=creative`。
+## 高风险项
 
-**Q：怎么限制最大人数？**
-`max-players=5` 之类。
+- **`enable-rcon`**：默认关闭。RCON 不应直接暴露在不可信网络上，因为常见 RCON 通信不加密。
+- **`allow-flight`**：它的作用是避免生存模式中飞行状态被踢出；开启前应确认是否由模组、插件或反作弊引发误判，而不是把它当成通用性能开关。
+- **`enforce-whitelist`**：启用后，白名单重载时会踢出当前不在名单内的玩家。操作前先确认管理员账号也在可访问名单中。
 
-**Q：视距卡怎么调？**
-把 `view-distance` 调小，比如 `6`，能明显缓解卡顿。注意这个参数客户端那边显示的是"服务器视距"，玩家改不了。
+## 修改后如何验证
 
-## 重要提醒
+重启服务端后，先看 `logs/latest.log` 是否出现配置解析或端口绑定错误；再用本机客户端连接测试。需要对外联机时，最后才用手机流量或局域网外的朋友测试公网路径。
 
-- **`online-mode` 千万别乱关**：关掉正版验证（`online-mode=false`），盗版玩家能进，但你的服务器也失去了身份验证这层保护，任何人都能冒用别人的名字进来，盗号的、捣乱的都挡不住。除非你明确知道自己在干什么，否则保持 `true`。
-- **地址是 `IP:端口` 格式**：改了 `server-port`，你发给玩家的地址和端口转发的规则都要同步改，三处不一致就进不去。
-- **改完必须重启**：`server.properties` 只在启动时读取。
+## 参考
 
-## 改坏了怎么办
-
-配置文件损坏或写错了格式，服务端可能启动失败，或某些参数不生效。解决办法：删掉 `server.properties`，服务端启动时会用默认值重新生成一个，回到出厂状态。所以改之前先备份，或者干脆记住"删了能重生成"，大胆改。
+- [Paper：server.properties 参考](https://docs.papermc.io/paper/reference/server-properties/)
+- [Minecraft Wiki：server.properties](https://minecraft.wiki/w/Server.properties)
+- [Minecraft Wiki：出生点保护](https://minecraft.wiki/w/Spawn_protection)

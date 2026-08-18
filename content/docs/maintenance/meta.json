@@ -4,6 +4,7 @@
     "index",
     "backup",
     "update",
-    "optimize"
+    "optimize",
+    "diagnostics"
   ]
 }
