@@ -1,82 +1,230 @@
-// app/page.tsx
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import {
+  ArrowRight,
+  BookOpenCheck,
+  ChevronRight,
+  CircleHelp,
+  Compass,
+  Gauge,
+  MessageCircle,
+  Network,
+  PackageOpen,
+  PlugZap,
+  ServerCog,
+  ShieldCheck,
+  Sparkles,
+  Wrench,
+} from 'lucide-react';
+
+const learningPaths: Array<{
+  href: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  label: string;
+}> = [
+  {
+    href: '/docs/general',
+    icon: Compass,
+    title: '从零开服',
+    description: '准备环境、选择服务端，并完成第一次本机启动。',
+    label: '建议先读',
+  },
+  {
+    href: '/docs/network',
+    icon: Network,
+    title: '让朋友连进来',
+    description: '理解端口转发与内网穿透，安全开放联机入口。',
+    label: '联机网络',
+  },
+  {
+    href: '/docs/plugins',
+    icon: PlugZap,
+    title: '扩展服务器',
+    description: '安装插件、管理功能，并避开常见兼容性问题。',
+    label: '插件管理',
+  },
+  {
+    href: '/docs/config',
+    icon: ServerCog,
+    title: '读懂配置',
+    description: '掌握服务端文件、白名单和核心配置的正确用法。',
+    label: '配置文件',
+  },
+  {
+    href: '/docs/maintenance',
+    icon: Gauge,
+    title: '稳定运行',
+    description: '建立备份、更新和优化习惯，让服务器长期可维护。',
+    label: '维护优化',
+  },
+  {
+    href: '/docs/mods',
+    icon: PackageOpen,
+    title: '搭建模组服',
+    description: '选择 Forge 或 Fabric，安装匹配版本的模组服务端。',
+    label: '模组服务端',
+  },
+];
 
 export default function HomePage() {
   return (
-    <main className="flex flex-1 flex-col justify-center text-center">
-      {/* 主标题区域 */}
-      <div className="mx-auto max-w-3xl px-4 py-20">
-        <h1 className="mb-6 text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-6xl lg:text-7xl">
-          <span className="text-green-600 dark:text-green-400">MineWiki</span>
-          <br />
-          <span className="text-3xl sm:text-4xl lg:text-5xl">新手腐竹的服务器宝典</span>
-        </h1>
-        <p className="mx-auto mb-8 max-w-2xl text-lg text-gray-600 dark:text-gray-300 sm:text-xl">
-          从零开始，轻松搭建、优化你的 Minecraft 服务器。
-          这里汇集了最实用的插件教程、配置指南和问题排查方案。
-        </p>
-        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+    <main className="relative flex-1 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_12%_10%,rgba(16,185,129,0.14),transparent_25%),radial-gradient(circle_at_88%_16%,rgba(56,189,248,0.10),transparent_22%)] dark:opacity-80"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[35rem] bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:linear-gradient(to_bottom,black,transparent_78%)] dark:opacity-45"
+      />
+
+      <section className="mx-auto max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold tracking-wide text-emerald-800 dark:text-emerald-200">
+            <Sparkles className="size-3.5" aria-hidden="true" />
+            Minecraft Server Wiki · 面向新手的开服指南
+          </div>
+          <h1 className="text-balance text-5xl font-black tracking-[-0.045em] text-fd-foreground sm:text-6xl lg:text-7xl">
+            从第一条命令开始，
+            <span className="block bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent dark:from-emerald-400 dark:to-teal-300">
+              建好你的 Minecraft 服务器。
+            </span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-8 text-fd-muted-foreground sm:text-lg">
+            MineWiki 把服务端选择、首次启动、联机、插件、配置和维护拆成可跟着操作的教程。少走弯路，先让服务器稳定跑起来。
+          </p>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link
+              href="/docs/general"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 text-sm font-semibold text-white shadow-sm shadow-emerald-950/15 transition hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 dark:bg-emerald-500 dark:hover:bg-emerald-400"
+            >
+              开始第一次开服
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+            <Link
+              href="/docs/faq"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-fd-border bg-fd-background/75 px-5 text-sm font-semibold text-fd-foreground shadow-sm transition hover:-translate-y-0.5 hover:bg-fd-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+            >
+              <CircleHelp className="size-4 text-emerald-600 dark:text-emerald-300" aria-hidden="true" />
+              先解决一个问题
+            </Link>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-4xl gap-3 rounded-2xl border border-fd-border/80 bg-fd-background/70 p-3 shadow-sm backdrop-blur sm:grid-cols-3 sm:gap-0 sm:p-2">
+          <HeroStep number="01" title="先在本机跑起来" description="完成 Java、服务端和 EULA。" />
+          <HeroStep number="02" title="确认配置与备份" description="改动之前知道文件在哪里。" />
+          <HeroStep number="03" title="再邀请玩家加入" description="最后处理端口与联机。" />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-8">
+        <div className="flex flex-col justify-between gap-4 border-t border-fd-border pt-10 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">按路径学习</p>
+            <h2 className="mt-1 text-2xl font-bold tracking-tight text-fd-foreground sm:text-3xl">每一步都有下一步</h2>
+          </div>
           <Link
             href="/docs"
-            className="inline-flex items-center rounded-lg bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow transition-colors hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-fd-muted-foreground transition hover:text-emerald-700 dark:hover:text-emerald-300"
           >
-            开始阅读文档
-            <ChevronRight className="ml-2 h-4 w-4" />
-          </Link>
-          <Link
-            href="https://qm.qq.com/q/ddmU2e3I4g"
-            className="inline-flex items-center rounded-lg border border-gray-300 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-800"
-          >
-            加入QQ群
+            浏览全部文档
+            <ChevronRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
-      </div>
 
-      {/* 特色功能卡片区域 */}
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 pb-20 sm:grid-cols-2 lg:grid-cols-3">
-        <FeatureCard
-          emoji="📚"
-          title="开服教程"
-          description="从服务端选择、环境配置到开服细节，一步步带你走进 Minecraft 服务器世界。"
-        />
-        <FeatureCard
-          emoji="🔌"
-          title="插件百科"
-          description="详细介绍 EssentialsX、LuckPerms 等常用插件的安装、配置与指令。"
-        />
-        <FeatureCard
-          emoji="🚀"
-          title="性能优化"
-          description="提供服务器优化方案，让你的服务器更流畅，为玩家带来更好的游戏体验。"
-        />
-        <FeatureCard
-          emoji="🛡️"
-          title="安全防护"
-          description="防崩、防熊、防攻击，了解服务器安全的基础知识与应对策略。"
-        />
-        <FeatureCard
-          emoji="🤖"
-          title="AI 助手答疑"
-          description="遇到问题？试试右下角的 AI 助手，快速获得针对性的解答和建议。"
-        />
-        <FeatureCard
-          emoji="💬"
-          title="社区支持"
-          description="如果这里没有找到答案，别忘了去 MCBBS 或 MineBBS 寻求更多帮助。"
-        />
-      </div>
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {learningPaths.map((path) => (
+            <LearningPath key={path.href} {...path} />
+          ))}
+        </div>
+
+        <div className="mt-10 grid gap-4 rounded-2xl border border-fd-border bg-fd-card p-5 shadow-sm sm:grid-cols-[1fr_auto] sm:items-center sm:p-6">
+          <div className="flex items-start gap-4">
+            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-500/12 text-emerald-700 dark:text-emerald-300">
+              <ShieldCheck className="size-5" aria-hidden="true" />
+            </span>
+            <div>
+              <h2 className="text-base font-semibold text-fd-foreground">遇到启动、连接或配置问题？</h2>
+              <p className="mt-1 text-sm leading-6 text-fd-muted-foreground">
+                先按症状查 FAQ；其中整理了连接失败、启动失败和常见配置误区的排查顺序。
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/docs/faq"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-fd-border px-4 py-2.5 text-sm font-semibold text-fd-foreground transition hover:border-emerald-500/55 hover:bg-emerald-500/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          >
+            查看常见问题
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
+
+      <section className="border-t border-fd-border bg-fd-muted/45">
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-5 px-5 py-10 sm:flex-row sm:items-center sm:px-8">
+          <div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-fd-foreground">
+              <BookOpenCheck className="size-4 text-emerald-600 dark:text-emerald-300" aria-hidden="true" />
+              MineWiki 是持续整理中的开服知识库
+            </div>
+            <p className="mt-1.5 text-sm text-fd-muted-foreground">文档里找不到答案时，可以加入社区交流，或补充你踩过的坑。</p>
+          </div>
+          <a
+            href="https://qm.qq.com/q/ddmU2e3I4g"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="inline-flex items-center gap-2 rounded-lg bg-fd-foreground px-4 py-2.5 text-sm font-semibold text-fd-background transition hover:opacity-88 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+          >
+            <MessageCircle className="size-4" aria-hidden="true" />
+            加入 QQ 群交流
+          </a>
+        </div>
+      </section>
     </main>
   );
 }
 
-// 功能卡片组件
-function FeatureCard({ emoji, title, description }: { emoji: string; title: string; description: string }) {
+function HeroStep({ number, title, description }: { number: string; title: string; description: string }) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white/50 p-6 text-left shadow-sm backdrop-blur-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800/50">
-      <div className="mb-3 text-3xl">{emoji}</div>
-      <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
-      <p className="text-sm text-gray-600 dark:text-gray-300">{description}</p>
+    <div className="relative rounded-xl px-4 py-3 sm:rounded-lg sm:px-5 sm:py-4 sm:not-last:border-r sm:not-last:border-fd-border">
+      <span className="text-xs font-bold tracking-[0.16em] text-emerald-700 dark:text-emerald-300">{number}</span>
+      <h2 className="mt-1 text-sm font-semibold text-fd-foreground">{title}</h2>
+      <p className="mt-1 text-xs leading-5 text-fd-muted-foreground">{description}</p>
     </div>
+  );
+}
+
+function LearningPath({
+  href,
+  icon: Icon,
+  title,
+  description,
+  label,
+}: {
+  href: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  label: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group relative flex min-h-48 flex-col overflow-hidden rounded-2xl border border-fd-border bg-fd-card p-5 shadow-sm transition-[border-color,box-shadow,transform] duration-150 hover:-translate-y-0.5 hover:border-emerald-500/55 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+    >
+      <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-fd-muted px-2.5 py-1 text-xs font-medium text-fd-muted-foreground">
+        <Icon className="size-3.5 text-emerald-600 dark:text-emerald-300" aria-hidden="true" />
+        {label}
+      </span>
+      <h3 className="mt-4 text-lg font-semibold tracking-tight text-fd-foreground">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-fd-muted-foreground">{description}</p>
+      <span className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+        查看指南
+        <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+      </span>
+    </Link>
   );
 }
