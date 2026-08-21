@@ -2,7 +2,9 @@
   "title": "从这里开始",
   "pages": [
     "index",
+    "server-types",
     "preparation",
-    "setup"
+    "setup",
+    "opening-checklist"
   ]
 }

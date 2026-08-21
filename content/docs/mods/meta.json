@@ -3,6 +3,8 @@
   "pages": [
     "index",
     "forge-fabric",
-    "install"
+    "install",
+    "client-server-compatibility",
+    "mod-troubleshooting"
   ]
 }

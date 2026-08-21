@@ -3,6 +3,8 @@
   "pages": [
     "index",
     "connect-fail",
-    "start-fail"
+    "start-fail",
+    "permission-denied",
+    "world-data-issues"
   ]
 }

@@ -3,6 +3,8 @@
   "pages": [
     "index",
     "server-properties",
-    "basic-files"
+    "basic-files",
+    "gameplay-rules",
+    "resource-and-datapacks"
   ]
 }

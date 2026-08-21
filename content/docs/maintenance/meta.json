@@ -2,9 +2,11 @@
   "title": "维护与备份",
   "pages": [
     "index",
+    "routine",
     "backup",
     "update",
     "optimize",
-    "diagnostics"
+    "diagnostics",
+    "migrate-server"
   ]
 }

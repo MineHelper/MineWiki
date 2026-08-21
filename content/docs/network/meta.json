@@ -4,6 +4,8 @@
     "index",
     "port-forward",
     "tunnel",
-    "security-baseline"
+    "domain-and-srv",
+    "security-baseline",
+    "velocity-proxy"
   ]
 }

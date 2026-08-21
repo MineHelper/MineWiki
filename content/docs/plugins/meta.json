@@ -3,6 +3,8 @@
   "pages": [
     "index",
     "install",
-    "essentials"
+    "permissions",
+    "essentials",
+    "update-and-rollback"
   ]
 }

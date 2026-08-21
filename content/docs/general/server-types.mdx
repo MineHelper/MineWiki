@@ -1,0 +1,44 @@
+---
+title: 选择服务端类型
+description: 先按玩法和扩展需求选对底座，再开始安装、配置和邀请玩家
+---
+
+第一次开服，最容易纠结的问题是“原版、Paper、Forge、NeoForge、Fabric 到底选哪个”。不需要先记住一长串名词，只要先回答一个问题：**你希望服务器增加的是插件功能，还是模组内容？**
+
+## 先按需求做选择
+
+| 你的目标 | 更合适的起点 | 需要接受的边界 |
+| --- | --- | --- |
+| 朋友一起玩接近原版的生存 | Vanilla 或 Paper | Vanilla 不加载 Bukkit/Paper 插件；Paper 会有额外配置与行为差异。 |
+| 想加传送、领地、权限、经济等管理功能 | Paper | 需要使用兼容的插件，不能直接加载 Forge、NeoForge 或 Fabric 模组。 |
+| 想玩明确指定的整合包 | 按整合包标注的加载器 | 客户端、服务端、加载器和模组版本要按整合包说明保持兼容。 |
+| 想自己组合新方块、新生物、新维度等内容 | Forge、NeoForge 或 Fabric | 需要管理加载器、模组依赖、Java 与客户端同步。 |
+
+Paper 官方将 Paper 定位为兼容 Bukkit/Spigot/Paper 插件的服务端；它不支持 Fabric 或 Forge 模组。不要为了同时加载两套生态而使用来源不明的“混合端”，这类组合的兼容性与数据风险往往难以判断。[1]
+
+## Vanilla 与 Paper 的实际区别
+
+Vanilla 是 Mojang 的原始 Java 服务端，适合希望保持原版行为、扩展需求很少的服务器。Paper 基于兼容插件生态的服务端实现，适合要加管理、保护或玩法插件的服务器。二者都能运行普通 Java 版世界，但在世界目录、配置和部分游戏行为上可能存在差异。
+
+如果你已经有一个 Vanilla 世界，迁移到 Paper 前先做完整备份，然后使用与启动脚本匹配的 Paper jar 启动。将来想回到 Vanilla 时，必须阅读对应版本的迁移说明；不要仅替换 jar 后就把旧世界直接上线。[1]
+
+## 模组加载器不是 Paper 的替代品
+
+Forge、NeoForge 与 Fabric 用于加载模组。它们之间的模组文件通常不能互换；同名模组在不同加载器下也可能是不同构建。模组服最重要的不是“哪个加载器更快”，而是你选的整合包、核心模组、依赖库和客户端是否明确支持同一个 Minecraft 版本与加载器。[2] [3]
+
+如果一个模组包作者提供 server pack，优先用它。server pack 通常已经处理了服务端不需要的纯客户端模组和启动文件，能减少第一轮排错成本。
+
+## 决定前的检查表
+
+1. 写下你想保留的三个核心玩法，例如“原版红石”“领地插件”“某个科技整合包”。
+2. 到整合包或模组的官方发布页确认加载器、Minecraft 版本、Java 要求和服务端包。
+3. 在独立目录启动一次，检查日志后再迁移旧世界或邀请玩家。
+4. 为首次可启动状态做整服备份，记录服务端和扩展版本。
+
+选对服务端类型能避免后面一半的兼容性问题。下一步可阅读[首次开服完整流程](/docs/general/setup)，或进入[模组服入门](/docs/mods)了解加载器与整合包的部署方式。
+
+## 参考
+
+[1]: https://docs.papermc.io/paper/migration/ "Paper：Migrating to or from Paper"
+[2]: https://docs.fabricmc.net/players/installing-mods "Fabric：Installing Mods"
+[3]: https://docs.neoforged.net/user/docs/server/ "NeoForge：Installing a Server"
