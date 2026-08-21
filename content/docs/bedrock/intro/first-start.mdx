@@ -1,0 +1,54 @@
+---
+title: 首次启动 Bedrock Dedicated Server
+description: 用官方 BDS 在本机完成第一次可验证启动，再进入网络与配置步骤
+---
+
+这篇教程只处理一个目标：让官方 Bedrock Dedicated Server（BDS）在本机成功启动，并让版本匹配的 Bedrock Edition 客户端进入一次。不要在第一次运行前就修改大量配置、开放公网端口或安装 Add-On；先确认基础服务端正常，后续问题才有明确的排查起点。[1]
+
+## 1. 下载并解压官方 BDS
+
+从 Minecraft 的[基岩版服务端下载页](https://www.minecraft.net/en-us/download/server/bedrock)取得与目标环境对应的压缩包。将它解压到新的空目录，不要覆盖旧服务器。保留下载文件或记录版本号，方便在客户端更新后核对服务端是否需要同步更新。[2]
+
+## 2. 在服务端目录中启动
+
+Windows 通常运行目录中的 `bedrock_server.exe`。Ubuntu 环境下，官方文档使用以下方式在服务端目录中启动：
+
+```bash
+cd ~/MinecraftServer
+LD_LIBRARY_PATH=. ./bedrock_server
+```
+
+第一次启动后，BDS 会在当前目录创建配置、世界和资源包相关文件夹。看到控制台持续运行、没有立即退出或报错，才进入下一步；如果它无法启动，先保留完整控制台输出、确认下载包和系统环境，而不是反复复制未知修复命令。[1]
+
+## 3. 检查世界与配置是否已经生成
+
+首次成功运行后，重点确认以下内容：
+
+| 项目 | 你应当看到什么 | 作用 |
+| --- | --- | --- |
+| `server.properties` | 位于服务端根目录的文本配置文件 | 决定服务器名称、游戏模式、活动世界与端口等设置。 |
+| `worlds/` | 包含世界目录 | 当前活动世界由 `level-name` 对应的目录决定。 |
+| `resource_packs/` 与 `behavior_packs/` | 服务端根目录的包目录 | 用于在服务端级别存放可供世界使用的资源与行为内容。 |
+
+暂时不要手动改名或移动新生成的世界目录。若要使用已有世界，应先停服、备份旧世界，再把世界目录放入 `worlds/` 并让 `level-name` 与目录名完全一致；大小写也需要一致。[1]
+
+## 4. 用匹配版本的客户端测试
+
+BDS 与客户端的协议版本需要保持兼容。如果看到 **Outdated Client** 或 **Outdated Server**，优先检查双方是否处于对应版本；服务端过旧时更新 BDS，客户端过旧时更新客户端。不要先通过修改端口或配置来处理版本不匹配。[1]
+
+在同一台 Windows 机器进行本机测试时，官方文档说明可能需要启用 loopback 才能使用 `127.0.0.1` 连接。若服务端运行在 Linux，使用同一局域网中另一台 Bedrock 客户端测试通常更直接。无论哪种方式，都先记录能成功进入时的服务端版本、世界名和端口。
+
+## 5. 正常停止并制作首份备份
+
+测试完成后，在 BDS 控制台输入：
+
+```text
+stop
+```
+
+等待进程自行退出，再复制 `worlds/` 与 `server.properties` 到备份位置。不要直接关闭控制台窗口或强制终止进程；世界文件尚未完成写入时，这会增加恢复难度。下一步再进入[基岩版联机与网络](/docs/bedrock/network)，处理其他设备或外网玩家连接。
+
+## 参考
+
+[1]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"
+[2]: https://www.minecraft.net/en-us/download/server/bedrock "Minecraft：Download Free Minecraft Bedrock Servers"

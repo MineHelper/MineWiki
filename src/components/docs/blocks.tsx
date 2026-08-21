@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import {
   AlertTriangle,
   ArrowRight,
+  Blocks,
   CheckCircle2,
   File,
   Folder,
@@ -10,17 +11,20 @@ import {
   Network,
   Package,
   Puzzle,
+  Server,
   Settings2,
   ShieldCheck,
   Wrench,
 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
-type QuickLinkIcon = 'start' | 'network' | 'plugins' | 'config' | 'maintenance' | 'mods' | 'faq';
+type QuickLinkIcon = 'start' | 'java' | 'bedrock' | 'network' | 'plugins' | 'config' | 'maintenance' | 'mods' | 'faq';
 type CalloutTone = 'info' | 'tip' | 'warning' | 'danger';
 
 const quickLinkIcons = {
   start: HardDrive,
+  java: Server,
+  bedrock: Blocks,
   network: Network,
   plugins: Puzzle,
   config: Settings2,

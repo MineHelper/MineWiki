@@ -1,0 +1,33 @@
+---
+title: 基岩版入门与首次启动
+description: 先确认官方 BDS 的运行环境与文件边界，再完成第一个可验证的本机服务端
+---
+
+基岩版独立服务器使用 Bedrock Dedicated Server（BDS）。官方提供 Windows 与 Ubuntu 版下载；在 Linux 侧，当前官方页面将 Ubuntu 22.04 LTS 或更高版本列为受支持目标，其他发行版不在同一支持范围内。[1] 因此，第一次部署不要先追求“最低资源占用”或第三方一键包，先在官方支持的环境中得到一次可重复的本机启动结果。
+
+## 先准备独立目录
+
+从官方页面下载 BDS 压缩包后，解压到一个空目录，例如 Windows 的 `C:\MinecraftServer` 或 Linux 的 `~/MinecraftServer`。不要与客户端游戏文件、多个版本的服务端或不明脚本混在一起；单独目录能让你更容易识别世界、配置和日志，也能在升级或回退时保留完整副本。[2]
+
+| 你要准备的内容 | 用途 |
+| --- | --- |
+| 官方 BDS 压缩包 | 提供服务端可执行文件和基础配置。 |
+| 可写入的独立目录 | 用于生成 `worlds`、`resource_packs`、`behavior_packs` 和配置文件。 |
+| 本机 Bedrock Edition 客户端 | 用于先验证本机或局域网连接。 |
+| 备份位置 | 用于保存每次可启动状态的世界和配置副本。 |
+
+## 建议的阅读顺序
+
+1. 阅读[首次启动 BDS](/docs/bedrock/intro/first-start)，完成下载、启动、版本核对和第一轮本机验证。
+2. 需要邀请其他设备或外网朋友时，进入[基岩版联机与网络](/docs/bedrock/network)。
+3. 服务端能够稳定启动后，再调整[配置与管理](/docs/bedrock/administration)中的世界、allowlist 和备份。
+4. 最后才尝试[资源包与 Add-On](/docs/bedrock/extensions)，并始终先在测试副本中检查兼容性。
+
+<Callout tone="tip" title="把第一次成功启动当作恢复点">
+  当你已经确认服务端能启动、客户端能进入并且世界名正确时，复制一份整个服务端目录或至少保存 `worlds` 与 `server.properties`。这份状态会成为后续加包、改端口或升级前最有价值的回退点。
+</Callout>
+
+## 参考
+
+[1]: https://www.minecraft.net/en-us/download/server/bedrock "Minecraft：Download Free Minecraft Bedrock Servers"
+[2]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"

@@ -1,0 +1,68 @@
+---
+title: Java 版开服教程
+description: 从服务端选型到长期维护，按任务完成你的 Minecraft Java Edition 服务器
+---
+
+这里是 Minecraft Java Edition 的完整开服路线。Java 版服务器并不只有一种形态：想保持接近原版的体验，可以从官方 Vanilla 服务端开始；需要常见管理与玩法扩展时，通常会选择兼容插件生态的 Paper；想运行整合包或自定义内容时，则要按 Forge、NeoForge 或 Fabric 等加载器要求部署。先根据目标玩法选择底座，再进入安装与配置步骤。[1] [2] [3]
+
+<Callout tone="warning" title="本板块只适用于 Java Edition">
+  Paper 插件、Fabric/Forge/NeoForge 模组、JVM 启动参数和 Java 版常用端口说明不适用于 Bedrock Dedicated Server。若玩家使用的是 Bedrock Edition，请返回[版本选择页](/docs)，进入[基岩版开服教程](/docs/bedrock)。
+</Callout>
+
+## 按任务开始
+
+<QuickLinkGrid>
+  <QuickLink
+    href="/docs/java/intro"
+    icon="start"
+    title="入门与首次开服"
+    description="选服务端、准备 Java 和运行环境、首次启动，并在开放前完成检查。"
+  />
+  <QuickLink
+    href="/docs/java/network"
+    icon="network"
+    title="联机与网络"
+    description="理解端口、外网测试、域名、SRV 记录、内网穿透与多子服代理。"
+  />
+  <QuickLink
+    href="/docs/java/configuration"
+    icon="config"
+    title="配置与游戏规则"
+    description="配置 server.properties、白名单、玩法规则、资源包和数据包。"
+  />
+  <QuickLink
+    href="/docs/java/operations"
+    icon="maintenance"
+    title="维护与恢复"
+    description="建立日常维护、备份、更新、性能定位、迁移与故障诊断流程。"
+  />
+  <QuickLink
+    href="/docs/java/extensions"
+    icon="plugins"
+    title="插件与模组"
+    description="分别进入 Bukkit/Paper 插件或 Forge、NeoForge、Fabric 模组服的专门路线。"
+  />
+  <QuickLink
+    href="/docs/java/faq"
+    icon="faq"
+    title="常见问题"
+    description="按连接失败、启动失败、权限和世界数据异常等症状快速定位。"
+  />
+</QuickLinkGrid>
+
+## 选择服务端之前
+
+| 你的主要目标 | 建议先读 | 需要注意 |
+| --- | --- | --- |
+| 与朋友玩接近原版的生存 | [选择服务端类型](/docs/java/intro/server-types) | Vanilla 与 Paper 的运行与扩展边界不同。 |
+| 安装领地、传送、经济、权限等插件 | [插件入门](/docs/java/extensions/plugins) | 先确认服务端与插件版本兼容；插件不是 Forge/Fabric 模组。 |
+| 使用指定的整合包 | [模组服入门](/docs/java/extensions/mods) | 加载器、Minecraft 版本、依赖与客户端要求必须对齐。 |
+| 让外网朋友加入 | [联机与网络](/docs/java/network) | 先完成本机启动和局域网检查，再处理公网端口。 |
+
+完成首次可启动状态后，尽早建立备份和变更记录。服务器并不是“能进服”就结束了；后续添加插件、更新版本、迁移主机或更改网络前，都应先在可回退的基础上操作。
+
+## 参考
+
+[1]: https://www.minecraft.net/en-us/download/server "Minecraft：Download the Minecraft Java Edition server"
+[2]: https://docs.papermc.io/paper/ "Paper Documentation"
+[3]: https://docs.fabricmc.net/players/installing-mods "Fabric Documentation：Installing Mods"

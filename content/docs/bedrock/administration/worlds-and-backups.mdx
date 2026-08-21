@@ -1,0 +1,35 @@
+---
+title: 管理世界并建立可恢复的备份
+description: 理解 BDS 的 worlds 目录和 level-name，再用停服副本保护世界与玩家数据
+---
+
+对 BDS 而言，`worlds/` 目录保存实际世界数据，而 `server.properties` 中的 `level-name` 选择当前启动的世界目录。服务端可以保存多个世界目录，但一次只会运行 `level-name` 指定的那一个。[1] 因此，“世界看起来丢了”时，第一步通常不是新建世界，而是停止服务端并核对 `level-name` 与 `worlds/` 下的目录名。
+
+## 导入或切换世界前的安全顺序
+
+1. 在控制台输入 `stop`，等待 BDS 正常退出。
+2. 复制当前 `worlds/<活动世界>` 目录和 `server.properties` 到带日期的备份位置。
+3. 将要使用的世界目录复制到 `worlds/` 下；不要只复制其中一部分文件。
+4. 在 `server.properties` 中把 `level-name` 设置为目标目录的完整名称，包括大小写。
+5. 启动 BDS，使用测试账号确认出生点、玩家数据和世界内容符合预期。
+
+官方文档建议先至少启动 BDS 一次，让必要目录生成后再导入已有世界。导入时，世界目录需要放在 `worlds/` 中，并让 `level-name` 与目录名称完全匹配。[1]
+
+## 备份什么，怎样命名
+
+| 内容 | 为什么要备份 | 建议 |
+| --- | --- | --- |
+| 当前活动世界目录 | 包含地图、玩家、实体和世界相关包数据 | 每次更新、迁移或重大配置变更前完整复制。 |
+| `server.properties` | 记录活动世界、端口、玩法和访问设置 | 与对应世界备份放在同一份带日期的目录。 |
+| `allowlist.json` 等管理文件 | 保留邀请和管理状态 | 变更名单前后备份，避免手动恢复时遗漏。 |
+| 资源包/行为包 | 可能影响世界的显示和行为 | 标记版本来源；更新前保留已验证构建。 |
+
+备份副本必须放在服务端正在使用的世界目录之外，并且应定期验证它能否复制到测试目录后正常启动。只有“已经能恢复”的副本，才是可靠备份；同一块磁盘上的单一副本无法覆盖硬盘故障或误删风险。
+
+<Callout tone="warning" title="不要在服务端运行时直接复制活跃世界">
+  运行中的世界可能仍在写入。停止服务端并确认进程结束后再复制，能减少产生不完整快照的风险。需要不停服备份时，应使用与你的部署环境和版本兼容、并明确说明一致性边界的方案。
+</Callout>
+
+## 参考
+
+[1]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"

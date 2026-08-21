@@ -1,0 +1,30 @@
+---
+title: 基岩版联机与网络
+description: 先确认局域网与版本匹配，再处理 BDS 的 UDP 端口、防火墙和公网连接
+---
+
+基岩版联机排错应遵循“先服务端、后本地网络、再公网”的顺序。BDS 能在控制台稳定运行并不自动表示外部玩家可以进入；客户端版本、服务器地址、UDP 端口、主机防火墙、路由器或云主机安全组都可能是不同环节的阻断点。
+
+## 先建立一个可验证的连接路径
+
+| 阶段 | 先确认什么 | 成功标准 |
+| --- | --- | --- |
+| 服务端 | BDS 已启动，世界和 `server.properties` 正常生成 | 控制台没有立即退出或反复报错。 |
+| 同局域网 | 另一台同网络的 Bedrock 客户端使用主机局域网地址连接 | 玩家能进入并在控制台看到加入记录。 |
+| 外部网络 | 使用手机流量或其他真正外部网络测试 | 连接结果覆盖完整的公网、路由和防火墙路径。 |
+
+不要用同一个 Wi-Fi 下的设备测试来推断公网一定可用；许多路由器对内网回环、端口映射和 NAT 的处理不同。外部测试失败时，先回到局域网测试结果，确定是服务端本身还是公网入口的问题。
+
+## BDS 使用的是 UDP 端口
+
+Microsoft 的 BDS 入门文档说明，防火墙应允许 `server.properties` 中的 `server-port` 与 `server-portv6`；文档示例默认值为 19132 和 19133。[1] 这些值可以按你的网络规划调整，但改动前后都应同时核对：服务端配置、主机防火墙规则、路由器端口映射或云安全组，以及玩家输入的端口。
+
+<Callout tone="warning" title="不要把 Java 版端口规则原样套过来">
+  Java 版与 BDS 的默认端口和协议不同。为 BDS 开放联机时，以 BDS 的 `server.properties` 和当前网络设备对 UDP 的要求为准；若路由器或托管面板只提供 TCP 规则，先确认它是否也支持所需 UDP 规则。
+</Callout>
+
+完成局域网与公网测试后，再阅读[基岩版连接与端口排查](/docs/bedrock/network/connectivity)，把常见的版本、地址、防火墙和端口问题逐项缩小范围。
+
+## 参考
+
+[1]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"

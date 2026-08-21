@@ -2,11 +2,11 @@ import Link from 'next/link';
 import type { LucideIcon } from 'lucide-react';
 import {
   ArrowRight,
+  Blocks,
   BookOpenCheck,
   ChevronRight,
   CircleHelp,
   Compass,
-  Gauge,
   MessageCircle,
   Network,
   PackageOpen,
@@ -25,46 +25,46 @@ const learningPaths: Array<{
   label: string;
 }> = [
   {
-    href: '/docs/general',
+    href: '/docs/java',
+    icon: ServerCog,
+    title: 'Java 版开服',
+    description: '适合 Java Edition 玩家；覆盖服务端、插件、模组、网络与维护。',
+    label: 'Java Edition',
+  },
+  {
+    href: '/docs/bedrock',
+    icon: Blocks,
+    title: '基岩版开服',
+    description: '适合 Bedrock Edition 玩家；从 BDS、UDP 联机、配置与 Add-On 开始。',
+    label: 'Bedrock Edition',
+  },
+  {
+    href: '/docs/java/intro',
     icon: Compass,
     title: '从零开服',
-    description: '准备环境、选择服务端，并完成第一次本机启动。',
-    label: '建议先读',
+    description: '准备 Java、选择服务端，并完成第一次本机启动。',
+    label: 'Java 入门',
   },
   {
-    href: '/docs/network',
+    href: '/docs/java/network',
     icon: Network,
     title: '让朋友连进来',
-    description: '理解端口转发与内网穿透，安全开放联机入口。',
-    label: '联机网络',
+    description: '理解端口转发与内网穿透，安全开放 Java 版联机入口。',
+    label: 'Java 网络',
   },
   {
-    href: '/docs/plugins',
+    href: '/docs/java/extensions/plugins',
     icon: PlugZap,
-    title: '扩展服务器',
+    title: '扩展 Java 服务器',
     description: '安装插件、管理功能，并避开常见兼容性问题。',
-    label: '插件管理',
+    label: 'Java 插件',
   },
   {
-    href: '/docs/config',
-    icon: ServerCog,
-    title: '读懂配置',
-    description: '掌握服务端文件、白名单和核心配置的正确用法。',
-    label: '配置文件',
-  },
-  {
-    href: '/docs/maintenance',
-    icon: Gauge,
-    title: '稳定运行',
-    description: '建立备份、更新和优化习惯，让服务器长期可维护。',
-    label: '维护优化',
-  },
-  {
-    href: '/docs/mods',
+    href: '/docs/java/extensions/mods',
     icon: PackageOpen,
-    title: '搭建模组服',
-    description: '选择 Forge 或 Fabric，安装匹配版本的模组服务端。',
-    label: '模组服务端',
+    title: '搭建 Java 模组服',
+    description: '选择 Forge、NeoForge 或 Fabric，安装匹配版本的模组服务端。',
+    label: 'Java 模组',
   },
 ];
 
@@ -93,14 +93,14 @@ export default function HomePage() {
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-8 text-fd-muted-foreground sm:text-lg">
-            MineWiki 把服务端选择、首次启动、联机、插件、配置和维护拆成可跟着操作的教程。少走弯路，先让服务器稳定跑起来。
+            MineWiki 先帮助你区分 Java Edition 与 Bedrock Edition，再按对应服务端、联机、配置、扩展和维护路径完成部署。
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
-              href="/docs/general"
+              href="/docs"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 text-sm font-semibold text-white shadow-sm shadow-emerald-950/15 transition hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 dark:bg-emerald-500 dark:hover:bg-emerald-400"
             >
-              开始第一次开服
+              选择开服版本
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
             <Link
@@ -114,9 +114,9 @@ export default function HomePage() {
         </div>
 
         <div className="mx-auto mt-12 grid max-w-4xl gap-3 rounded-2xl border border-fd-border/80 bg-fd-background/70 p-3 shadow-sm backdrop-blur sm:grid-cols-3 sm:gap-0 sm:p-2">
-          <HeroStep number="01" title="先在本机跑起来" description="完成 Java、服务端和 EULA。" />
-          <HeroStep number="02" title="确认配置与备份" description="改动之前知道文件在哪里。" />
-          <HeroStep number="03" title="再邀请玩家加入" description="最后处理端口与联机。" />
+          <HeroStep number="01" title="先选择版本" description="确认玩家使用 Java Edition 还是 Bedrock Edition。" />
+          <HeroStep number="02" title="完成本机启动" description="按对应服务端完成配置并验证日志。" />
+          <HeroStep number="03" title="再邀请玩家加入" description="确认备份后处理端口与联机。" />
         </div>
       </section>
 
@@ -124,7 +124,7 @@ export default function HomePage() {
         <div className="flex flex-col justify-between gap-4 border-t border-fd-border pt-10 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">按路径学习</p>
-            <h2 className="mt-1 text-2xl font-bold tracking-tight text-fd-foreground sm:text-3xl">每一步都有下一步</h2>
+            <h2 className="mt-1 text-2xl font-bold tracking-tight text-fd-foreground sm:text-3xl">先选择版本，再按路径学习</h2>
           </div>
           <Link
             href="/docs"
@@ -154,7 +154,7 @@ export default function HomePage() {
             </div>
           </div>
           <Link
-            href="/docs/faq"
+            href="/docs/java/faq"
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-fd-border px-4 py-2.5 text-sm font-semibold text-fd-foreground transition hover:border-emerald-500/55 hover:bg-emerald-500/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
           >
             查看常见问题

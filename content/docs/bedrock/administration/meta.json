@@ -1,0 +1,8 @@
+{
+  "title": "配置与管理",
+  "pages": [
+    "index",
+    "server-properties-and-allowlist",
+    "worlds-and-backups"
+  ]
+}

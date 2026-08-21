@@ -1,0 +1,29 @@
+---
+title: Java 版扩展内容
+description: 先区分插件与模组，再进入与服务端类型匹配的扩展路线
+---
+
+Java 版的“扩展”至少分为两条不同路线：**插件**通常运行在兼容 Bukkit/Paper API 的服务端上；**模组**则依赖 Forge、NeoForge 或 Fabric 等加载器。它们的文件格式、安装目录、客户端要求和排错方式都不同。先确认你正在运行的服务端类型，再选择下面的入口。
+
+<Callout tone="warning" title="不要把插件与模组混装">
+  Paper/Bukkit 插件不能直接当作 Fabric、Forge 或 NeoForge 模组加载；反过来也是一样。来源不明的“混合端”通常会增加兼容性与数据恢复风险，部署前应先阅读其官方支持范围。
+</Callout>
+
+## 选择扩展路线
+
+<QuickLinkGrid>
+  <QuickLink
+    href="/docs/java/extensions/plugins"
+    icon="plugins"
+    title="插件教程"
+    description="适合 Paper 等插件服务端；学习来源核验、安装、权限、常用功能和安全回滚。"
+  />
+  <QuickLink
+    href="/docs/java/extensions/mods"
+    icon="mods"
+    title="模组服教程"
+    description="适合 Forge、NeoForge 与 Fabric 生态；学习加载器、整合包、客户端同步和故障排查。"
+  />
+</QuickLinkGrid>
+
+无论选择哪一条路线，都应先在测试副本中启动，并记录服务端、扩展与依赖版本。准备对正式世界加装、升级或移除内容时，先阅读[维护与恢复](/docs/java/operations)中的备份与更新流程。

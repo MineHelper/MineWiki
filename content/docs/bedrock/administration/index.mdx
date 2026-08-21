@@ -1,0 +1,35 @@
+---
+title: 基岩版配置与管理
+description: 用可回退的方式管理 BDS 的 server.properties、allowlist、世界和备份
+---
+
+BDS 的稳定运行依赖于少量关键文件，而不是频繁调整每一个开关。优先理解 `server.properties`、`allowlist.json` 和 `worlds/` 的职责：前者控制服务端行为，allowlist 用于限制可以连接的玩家，世界目录保存实际游戏数据。修改它们之前，先停服并复制当前可启动副本。[1]
+
+<QuickLinkGrid>
+  <QuickLink
+    href="/docs/bedrock/administration/server-properties-and-allowlist"
+    icon="config"
+    title="配置与 allowlist"
+    description="了解 server.properties 的修改边界，并以可审计方式管理受限玩家名单。"
+  />
+  <QuickLink
+    href="/docs/bedrock/administration/worlds-and-backups"
+    icon="maintenance"
+    title="世界与备份"
+    description="识别 level-name 与 worlds 目录的关系，在迁移或更新前制作可恢复副本。"
+  />
+</QuickLinkGrid>
+
+## 管理时坚持三件事
+
+| 原则 | 做法 |
+| --- | --- |
+| 一次只改一类配置 | 先记录原值，修改后启动并验证，再继续下一项。 |
+| 世界优先于便利 | 涉及 `level-name`、世界目录、资源/行为包或更新时，先备份整个目标世界。 |
+| 权限保持最小化 | 仅为实际管理员授予 OP；公开服务器建议先启用 allowlist，再按需邀请玩家。 |
+
+官方文档将 `server.properties` 描述为控制大多数 BDS 选项的 INI 风格文件。`allow-list=true` 时，服务器只允许名单中的玩家加入；可使用 `/allowlist` 命令，或编辑 `allowlist.json` 后执行 reload 使其重新读取。[1]
+
+## 参考
+
+[1]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"

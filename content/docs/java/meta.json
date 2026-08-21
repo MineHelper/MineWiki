@@ -1,0 +1,12 @@
+{
+  "title": "Java 版开服教程",
+  "pages": [
+    "index",
+    "intro",
+    "network",
+    "configuration",
+    "operations",
+    "extensions",
+    "faq"
+  ]
+}

@@ -1,0 +1,41 @@
+---
+title: 配置 server.properties 与 allowlist
+description: 先了解 BDS 的核心配置和白名单，再以最小权限方式开放玩家访问
+---
+
+BDS 的多数服务端选项都在根目录的 `server.properties` 中管理。它是每行一个 `key=value` 的 INI 风格文本文件，注释以 `#` 开头。[1] 修改前先停止服务端并备份原文件；一次只改一组相关设置，启动后观察控制台和测试客户端，再记录最终值。
+
+## 先关注这些核心项
+
+| 配置项 | 用途 | 修改时要确认 |
+| --- | --- | --- |
+| `server-name` | 在客户端列表中显示的服务器名称 | 不要将私人地址、账号或内部信息写进名称。 |
+| `level-name` | 指定 `worlds/` 中的活动世界目录 | 值必须与目标世界目录名完全一致，包括大小写。 |
+| `gamemode` | 设置新玩家的默认游戏模式 | 先在测试账号上确认玩法和管理流程。 |
+| `server-port` / `server-portv6` | BDS 的 IPv4/IPv6 端口 | 同步检查 UDP 防火墙、路由器或云安全组规则。 |
+| `allow-list` | 是否只允许名单中的玩家进入 | 对只邀请熟人的服务器，建议先启用再逐个添加玩家。 |
+
+配置项名称与可用值会随 BDS 更新变化。需要完整参数说明时，应查看 Microsoft 的 BDS server.properties 参考，而不是复制不明来源的整份配置。[2]
+
+## 使用 allowlist 限制访问
+
+当 `allow-list=true` 时，BDS 只允许 `allowlist.json` 中的玩家加入。最简单的管理方式是在游戏内或控制台使用以下命令：
+
+```text
+/allowlist add <GamerTag>
+/allowlist remove <GamerTag>
+/allowlist reload
+```
+
+如果 GamerTag 含有空格，官方文档要求使用引号包住名称。也可以直接编辑 `allowlist.json`，但外部编辑完成后需要运行 `/allowlist reload`，让服务端重新读取名单。[1]
+
+<Callout tone="warning" title="不要把 OP 当作普通邀请权限">
+  OP 能执行管理命令，应只授予实际管理员。allowlist 的作用是限制谁能加入，不能代替备份、更新记录或对管理员账号的最小权限管理。
+</Callout>
+
+修改完配置或名单后，使用测试账号验证一次：允许的玩家能进入，不在名单内的账号按预期被拒绝，控制台中没有新的配置错误。下一步可进入[世界与备份](/docs/bedrock/administration/worlds-and-backups)，为配置变更和世界数据建立恢复点。
+
+## 参考
+
+[1]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"
+[2]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/server-properties?view=minecraft-bedrock-stable "Microsoft Learn：Bedrock Dedicated Server Properties"

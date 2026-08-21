@@ -1,0 +1,29 @@
+---
+title: 基岩版资源包与 Add-On
+description: 区分资源包、行为包与 Add-On，在测试副本中完成可回退的内容扩展
+---
+
+基岩版的扩展方式与 Java 版插件、模组不同。资源包通常改变纹理、声音和视觉资源；行为包改变实体和游戏行为；Add-On 可以组合这类内容来扩展世界。不要把 Java 版的 `.jar` 插件或 Forge/Fabric 模组放入 BDS 目录，它们不会成为可用的基岩版扩展。[1]
+
+BDS 初次启动后会创建服务端根目录下的 `resource_packs/` 与 `behavior_packs/`，并且世界目录中也可以存在对应的包目录。官方文档说明，世界目录中的包只在该世界运行时可用；根目录中的共享包可供服务端运行的任何世界使用。[2]
+
+## 先决定包应放在哪一层
+
+| 位置 | 更适合的场景 | 修改前要做什么 |
+| --- | --- | --- |
+| `worlds/<世界>/resource_packs` 或 `behavior_packs` | 内容只属于一个特定世界、地图或玩法。 | 备份目标世界，并确认切换世界后不会错误依赖该包。 |
+| 服务端根目录的 `resource_packs/` 或 `behavior_packs/` | 内容需要被多个可运行世界共享。 | 记录包版本与来源，在测试世界先验证。 |
+| 客户端开发目录 | 正在制作或调试 Add-On。 | 使用单独测试环境，不要直接把未验证文件投放到正式服务器。 |
+
+## 部署前后的安全步骤
+
+先阅读[资源包、行为包与 Add-On 部署](/docs/bedrock/extensions/packs-and-addons)，明确文件来源、目录层级、世界依赖和测试方法。任何可能改变世界生成、实体行为或玩家交互的包，都应先在世界副本上启动和连接测试；测试完成后再决定是否应用到正式世界。
+
+<Callout tone="warning" title="扩展更新也需要回退计划">
+  删除或替换包之前，先保存原始包文件、配置和世界备份。若新版本导致世界无法加载、实体异常或玩家连接失败，回到已验证的包版本和世界副本会比现场猜测原因更可靠。
+</Callout>
+
+## 参考
+
+[1]: https://learn.microsoft.com/en-us/minecraft/creator/documents/gettingstarted?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Add-On Development for Bedrock Edition"
+[2]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"

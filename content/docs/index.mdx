@@ -1,57 +1,52 @@
 ---
-title: MineWiki 文档
-description: Minecraft 开服教程与常见问题索引
+title: 从这里选择开服路线
+description: 先确认你要运行 Java 版还是基岩版服务器，再进入对应的分步教程
 ---
 
-这里汇总 Minecraft 服务器开服、配置、联机、插件、模组与维护相关教程。初次开服建议从“从这里开始”按顺序阅读；遇到问题时，再按主题进入对应章节。
+Minecraft 的 Java 版与基岩版使用不同的服务端软件、客户端生态和扩展方式。第一次开服时，最重要的选择不是先改配置，而是先确定你的玩家主要使用哪一个版本；选错路线后，后续的插件、模组、端口、资源包和管理命令都可能不适用。
 
-<Callout tone="tip" title="第一次开服？">
-  先看“从这里开始”中的准备与首次开服流程。不要急着装插件或开端口，先让服务端在本机稳定启动。
+<Callout tone="info" title="先按玩家使用的客户端选择">
+  想让使用 Minecraft Java Edition 的电脑玩家加入，请进入 Java 版教程。想为 Windows、手机、平板或主机上的 Bedrock Edition 玩家部署独立服务器，请进入基岩版教程。两者不能把同一套服务端文件直接互换使用。[1] [2]
 </Callout>
 
-## 按主题开始
+## 选择你的版本
 
 <QuickLinkGrid>
   <QuickLink
-    href="/docs/general"
-    icon="start"
-    title="从这里开始"
-    description="准备环境、选择服务端，并完成第一次启动。"
+    href="/docs/java"
+    icon="java"
+    title="Java 版开服教程"
+    description="适合 Java Edition 玩家；从 Vanilla、Paper、Fabric、NeoForge 等服务端选择开始，继续学习插件、模组、网络和维护。"
   />
   <QuickLink
-    href="/docs/network"
-    icon="network"
-    title="联机与网络"
-    description="让局域网外的朋友可以安全地连接到服务器。"
-  />
-  <QuickLink
-    href="/docs/plugins"
-    icon="plugins"
-    title="插件"
-    description="认识插件生态，完成安装、配置与常用功能部署。"
-  />
-  <QuickLink
-    href="/docs/config"
-    icon="config"
-    title="配置文件"
-    description="读懂 server.properties、白名单与常见服务端文件。"
-  />
-  <QuickLink
-    href="/docs/maintenance"
-    icon="maintenance"
-    title="维护与备份"
-    description="建立备份、更新与优化习惯，让服务器长期稳定运行。"
-  />
-  <QuickLink
-    href="/docs/mods"
-    icon="mods"
-    title="模组服"
-    description="选择 Forge 或 Fabric，并安装匹配版本的模组服务端。"
-  />
-  <QuickLink
-    href="/docs/faq"
-    icon="faq"
-    title="常见问题"
-    description="按症状快速排查连接、启动和运行中的高频故障。"
+    href="/docs/bedrock"
+    icon="bedrock"
+    title="基岩版开服教程"
+    description="适合 Bedrock Edition 玩家；从 Bedrock Dedicated Server、UDP 联机、服务器配置、白名单、世界与 Add-On 开始。"
   />
 </QuickLinkGrid>
+
+## 两条路线的主要区别
+
+| 关注点 | Java 版 | 基岩版 |
+| --- | --- | --- |
+| 官方独立服务端 | Java Edition Server；也可按需求选择 Paper、Fabric 或 NeoForge 等生态。 | Bedrock Dedicated Server（BDS），官方提供 Windows 与 Ubuntu 版本。[2] |
+| 扩展方式 | 插件与模组是两套不同生态，服务端类型要与扩展格式匹配。 | 以资源包、行为包和 Add-On 为主要扩展形式，不等同于 Java 版插件或模组。 |
+| 常见联机端口 | 以服务端的 TCP 配置为准；Java 教程会单独说明网络前提。 | BDS 使用 `server.properties` 中的 UDP 端口；官方资料示例默认使用 19132 与 19133。[3] |
+| 版本兼容 | 客户端、服务端、加载器与扩展需按各自生态核对版本。 | 客户端和 BDS 的协议版本不一致时，可能出现 Outdated Client 或 Outdated Server，应先同步版本。[3] |
+
+这里的分类只用于帮助你开始；如果你的目标是让 Java 与基岩版玩家共同游玩，请先完成其中一条主路线，再阅读跨版本联机的专门说明。不要把跨版本桥接当作“同一种服务端”，也不要直接套用另一版本的配置样例。
+
+## 阅读方式
+
+每个版本板块都按相同的任务顺序组织：先了解服务端和环境，再完成首次启动与联机，然后进入配置、日常管理和扩展内容。子目录的页面会在侧栏中展开；如果你只想解决一个明确症状，也可以从常见问题入口开始，但处理涉及世界、权限或网络的操作前仍应先备份并记录原始配置。
+
+<Callout tone="tip" title="不确定该选哪一个？">
+  先问准备一起玩的玩家：他们启动游戏时使用的是 Java Edition 还是 Bedrock Edition。以大多数实际玩家的客户端为准，再进入对应的板块；不要只根据设备品牌或“手机版/电脑版”这类说法猜测。
+</Callout>
+
+## 参考
+
+[1]: https://www.minecraft.net/en-us/download/server "Minecraft：Download the Minecraft Java Edition server"
+[2]: https://www.minecraft.net/en-us/download/server/bedrock "Minecraft：Download Free Minecraft Bedrock Servers"
+[3]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"

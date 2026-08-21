@@ -1,0 +1,35 @@
+---
+title: 部署资源包、行为包与 Add-On
+description: 先确认包的来源和世界依赖，再在测试副本中验证基岩版扩展内容
+---
+
+资源包、行为包和 Add-On 的部署不应从“把文件丢进目录里试试”开始。先确认内容作者提供的是哪一类包、支持哪个 Bedrock 版本、是否要求绑定特定世界，以及是否同时需要资源包与行为包。官方开发文档说明，基岩版扩展内容以 JSON 等文件结构组织，行为与资源内容分别有对应目录；不同世界或服务端级目录的作用也不同。[1] [2]
+
+## 选择正确的目录层级
+
+| 内容范围 | 放置位置 | 适合什么情况 |
+| --- | --- | --- |
+| 只服务一个世界 | `worlds/<世界>/resource_packs` 或 `worlds/<世界>/behavior_packs` | 地图、特定玩法或不应影响其他世界的内容。 |
+| 服务端多个世界都可能使用 | BDS 根目录的 `resource_packs/` 或 `behavior_packs/` | 已验证、可共享且版本管理清楚的包。 |
+| 本地开发和调试 | 客户端的 development pack 目录 | 正在制作或修改内容，尚未准备应用到服务器。 |
+
+服务端根目录与世界目录都可能出现资源包、行为包文件夹。官方 BDS 文档说明，世界目录中的包只在该世界活动时生效；根目录包可供任何运行中的世界使用。[2]
+
+## 推荐的部署流程
+
+1. 停止 BDS，并备份目标世界、`server.properties` 和当前包文件。
+2. 在新的测试世界或现有世界的完整副本中放入包；不要先修改正式世界。
+3. 启动 BDS，观察控制台输出，并用测试客户端进入世界检查资源、实体、配方或交互是否正常。
+4. 记录包名称、版本、下载来源、测试日期和依赖关系；确认客户端是否需要同步导入内容。
+5. 测试通过后，使用同样步骤将经过验证的版本应用到正式世界，并保留上一版本包文件和备份。
+
+如果某个包要求导入 `.mcpack`、`.mcworld` 或其他打包形式，优先遵循作者的官方说明。不要通过修改扩展名、删除 manifest 字段或混用来源不明的依赖来“强行安装”；这样即使暂时启动，也可能在客户端更新后导致世界或玩家体验异常。
+
+## 出现异常时如何回退
+
+新增包后出现世界无法加载、实体异常、材质缺失或客户端无法加入时，先停止 BDS。保留控制台日志和新包副本，然后恢复到上一个已验证的世界备份与包版本。不要继续在同一个异常世界上反复删除文件；如果要做诊断，请复制一个独立副本，逐个移除最近添加的内容并记录结果。
+
+## 参考
+
+[1]: https://learn.microsoft.com/en-us/minecraft/creator/documents/gettingstarted?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Add-On Development for Bedrock Edition"
+[2]: https://learn.microsoft.com/en-us/minecraft/creator/documents/bedrockserver/getting-started?view=minecraft-bedrock-stable "Microsoft Learn：Getting Started with Bedrock Dedicated Server"
